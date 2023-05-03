@@ -37,10 +37,12 @@ function handleFormSubmit(event) {
     xhr.open('POST', loginUrl);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function() {
-        if (xhr.status === 200) {
         const response = JSON.parse(xhr.responseText);
-        
         console.log(response);
+
+        if (xhr.status === 200) {
+        
+
         } 
         else {
           console.log('shit happened');
@@ -51,9 +53,9 @@ function handleFormSubmit(event) {
         console.error('An error occurred while sending the request.');
     };   
 
-    console.log('sending data:', jsonData);
+    console.log('sending data:', JSON.stringify(jsonData));
 
-    xhr.send(jsonData);
+    xhr.send(JSON.stringify(jsonData));
 }
 
 
