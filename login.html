@@ -25,25 +25,27 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
+        <script src="./javascripts/login-page/login-script.js"></script>    
+
         <a class="center" href="index.html" style="margin-top: 40px;">
             <span class="h1 text-uppercase text-primary bg-dark px-2">Click</span>
             <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Deal</span>
         </a>
         <div class="container center login-panel">
-            <form>
+            <form id="login-form">
                 <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <label for="exampleInputEmail1" class="form-label" onclick="myFunction()">Email</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" name="userNameOrEmailAddress" aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label">Parola</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1">
+                  <input type="password" class="form-control" name="password" id="exampleInputPassword1">
                 </div>
                 <div class="mb-3 form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <input type="checkbox" name="rememberMe" class="form-check-input" id="exampleCheck1">
                   <label class="form-check-label form-label" for="exampleCheck1">Păstrează-mă autentificat</label>
                 </div>
-                <button type="submit" class="btn btn-primary login-btn">Conectează-te</button>
+                <button type="submit" class="btn btn-primary login-btn" id="submit-button-ID">Conectează-te</button>
             </form>
                 <p style="margin-top: 1rem;">Nu ai cont? Click <a href="register.html">aici</a> pentru a crea unul!</p>
                 <hr>
