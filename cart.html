@@ -31,7 +31,7 @@
     <div class="container-fluid">
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
-                <a href="" class="text-decoration-none">
+                <a href="index.html" class="text-decoration-none">
                     <span class="h1 text-uppercase text-primary bg-dark px-2">Click</span>
                     <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Deal</span>
                 </a>
@@ -56,6 +56,9 @@
     </div>
     <!-- Topbar End -->
 
+
+    <!-- NAVBAR LOGIQUE  -->
+    <script type="module" src="./javascripts/header-logic/header-script.js"></script>  
 
     <!-- Navbar Start -->
     <div class="container-fluid bg-dark mb-30">
@@ -95,7 +98,7 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
                             <a href="index.html" class="nav-item nav-link active">Acasă</a>
-                            <a href="shop.html" class="nav-item nav-link active">Magazin</a>
+                            <a href="shop.html" class="nav-item nav-link">Magazin</a>
                             <a href="index.html" class="nav-item nav-link">Oferte</a>
                             <!-- <a href="shop.html" class="nav-item nav-link">Shop</a>
                             <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
@@ -109,15 +112,19 @@
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                            <a href="" class="btn px-0">
+                            <!-- <a href="" class="btn px-0">
                                 <i class="fas fa-heart text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
-                            </a>
-                            <a href="" class="btn px-0 ml-3">
-                                <i class="fas fa-shopping-cart text-primary"></i>
+                            </a> -->
+                            <a href="cart.html" btn px-0 ml-3" id="shopping-cart-button">
+                                <i class="fas fa-shopping-cart fa-lg text-primary"></i>
                                 <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
                             </a>
                         </div>
+
+                        <a class="btn px-0 ml-3" id="profile-button" style="font-size: 1.3em">
+                            <i class="fas fa-user-circle fa-lg text-primary"></i>
+                        </a>
                     </div>
                 </nav>
             </div>
