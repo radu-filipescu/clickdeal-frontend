@@ -49,35 +49,14 @@ function handleFormSubmit(event) {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        console.log('Login successful');
-        // You can now make authenticated requests with the saved cookies
+        
+        // login successful
+
+        window.location.href = CONSTS.URLS.frontendDevIndex;
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
-
-    // const xhr = new XMLHttpRequest();
-    // xhr.open('POST', loginUrl);
-    // xhr.setRequestHeader('Content-Type', 'application/json');
-    // xhr.onload = function() {
-    //     if (xhr.status === 200) {
-    //         const response = JSON.parse(xhr.responseText);
-
-    //         // if all is good
-    //         if(response["description"] == "Success") {
-    //             //handleSuccesfulLogin();
-    //         }        
-    //     } 
-    //     else {
-    //       // TODO: maybe?
-    //     }
-    // };
-    
-    // xhr.onerror = function() {
-    //     console.error('An error occurred while sending the request.');
-    // };   
-
-    // xhr.send(JSON.stringify(jsonData));
 }
 
 
