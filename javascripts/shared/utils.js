@@ -6,6 +6,8 @@ function logout() {
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.setRequestHeader('Content-Type', 'application/json');
     
+    // TODO: implement logout 
+
     xhr.onload = function() {
         //const response = JSON.parse(xhr.responseText);
 
