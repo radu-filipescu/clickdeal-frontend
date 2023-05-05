@@ -4,9 +4,47 @@ import { CONSTS } from "../shared/CONSTS.js"
 window.onload = init;
 
 // TODO: get product categories dynamically
+function getProductCategories() {
+    const categoriesUrl = CONSTS.URLS.backendDevUrl + 'app/categories/categories';
+
+    fetch(categoriesUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include' // include cookies in the request
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        
+        return response.json();
+    })
+    .then(data => {
+        // set categories names to product menu
+        const categoriesMenu = document.getElementById('product-categories-navbar');
+
+        for(let i = 0; i < data.length; i++) {
+            let newChild = document.createElement('a');
+            newChild.className = "nav-item nav-link";
+            newChild.innerText = data[i].name;
+            
+            categoriesMenu.appendChild(newChild);
+        }       
+    })
+    .catch(error => {
+        console.error('There was a problem with getting categories:', error);
+    });
+}
+
 
 function profileClickLogged() {
     // TODO: navigate to profile page
+}
+
+function profileClickNotLogged() {
+    window.location.href = CONSTS.frontendDevLogin;
 }
 
 function init() {
@@ -18,7 +56,7 @@ function init() {
         console.log('is logged in');
 
         // profile button goes to profile page
-        profileButton.removeEventListener("click");
+        profileButton.removeEventListener("click", profileClickNotLogged);
 
         profileButton.addEventListener("click", profileClickLogged);
     }, 
@@ -27,10 +65,11 @@ function init() {
         console.log('in not logged');
 
         // profile button goes to login page
-        profileButton.removeEventListener("click");
+        profileButton.removeEventListener("click", profileClickLogged);
 
-        profileButton.addEventListener("click", () => {
-            window.location.href = CONSTS.frontendDevLogin;
-        });
+        profileButton.addEventListener("click", profileClickNotLogged);
     });
+
+    // get product categories 
+    getProductCategories();
 }
