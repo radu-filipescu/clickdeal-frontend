@@ -3,6 +3,8 @@ import { CONSTS } from "../shared/CONSTS.js"
 
 window.onload = init;
 
+// TODO: get product categories dynamically
+
 function profileClickLogged() {
     // TODO: navigate to profile page
 }
