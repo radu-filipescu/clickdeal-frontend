@@ -56,7 +56,7 @@ function handleFormSubmit(event) {
         if (data.result == 1) {
             // login successful
 
-            //window.location.href = CONSTS.URLS.frontendDevIndex;
+            window.location.href = CONSTS.URLS.frontendDevIndex;
         } else {
             
         }

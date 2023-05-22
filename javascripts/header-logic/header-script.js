@@ -29,11 +29,11 @@ export function headerInitLogic() {
 }
 
 function profileClickLogged() {
-    // TODO: navigate to profile page
+    window.location.href = CONSTS.URLS.frontendProfilePage;
 }
 
 function profileClickNotLogged() {
-    window.location.href = CONSTS.frontendDevLogin;
+    window.location.href = CONSTS.URLS.frontendDevLogin;
 }
 
 function getProductCategoriesForNavbar() {

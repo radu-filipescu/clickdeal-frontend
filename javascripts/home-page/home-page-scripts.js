@@ -9,7 +9,7 @@ function init() {
     getProductCategories();
 }
 
-function getProductCategoriesList() {
+function getProductCategories() {
     const categoriesUrl = CONSTS.URLS.backendDevUrl + 'app/categories/categories';
 
     fetch(categoriesUrl, {
