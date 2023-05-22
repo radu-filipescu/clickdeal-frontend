@@ -1,54 +1,7 @@
 import { isLoggedIn } from "../shared/utils.js"
 import { CONSTS } from "../shared/CONSTS.js"
 
-window.onload = init;
-
-function getProductCategories() {
-    const categoriesUrl = CONSTS.URLS.backendDevUrl + 'app/categories/categories';
-
-    fetch(categoriesUrl, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        credentials: 'include' // include cookies in the request
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        
-        return response.json();
-    })
-    .then(data => {
-        console.log(data)
-        // set categories names to product menu
-        const categoriesMenu = document.getElementById('product-categories-navbar');
-
-        for(let i = 0; i < data.length; i++) {
-            let newChild = document.createElement('a');
-            newChild.className = "nav-item nav-link";
-            newChild.innerText = data[i].name;
-            
-            categoriesMenu.appendChild(newChild);
-        }       
-    })
-    .catch(error => {
-        console.error('There was a problem with getting categories:', error);
-    });
-}
-
-
-function profileClickLogged() {
-    // navigate to profile page
-    window.location.href = CONSTS.URLS.frontendProfilePage;
-}
-
-function profileClickNotLogged() {
-    window.location.href = CONSTS.URLS.frontendDevLogin;
-}
-
-function init() {
+export function headerInitLogic() {
     const profileButton = document.getElementById('profile-button');
     const shoppingCartButton = document.getElementById('shopping-cart-button');
 
@@ -72,5 +25,40 @@ function init() {
     });
 
     // get product categories 
-    getProductCategories();
+    getProductCategoriesForNavbar();
+}
+
+function profileClickLogged() {
+    // TODO: navigate to profile page
+}
+
+function profileClickNotLogged() {
+    window.location.href = CONSTS.frontendDevLogin;
+}
+
+function getProductCategoriesForNavbar() {
+    const categoriesUrl = CONSTS.URLS.backendDevUrl + 'app/categories/categories';
+
+    fetch(categoriesUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include' // include cookies in the request
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+
+               
+    })
+    .catch(error => {
+        console.error('There was a problem with getting categories:', error);
+    });
 }
