@@ -4,10 +4,10 @@ import { CONSTS } from "../shared/CONSTS.js"
 window.onload = init;
 
 function init() {
-    getProductCategories();
+    getProductCategoriesList();
 }
 
-function getProductCategories() {
+function getProductCategoriesList() {
     const categoriesUrl = CONSTS.URLS.backendDevUrl + 'app/categories/categories';
 
     fetch(categoriesUrl, {
@@ -25,7 +25,7 @@ function getProductCategories() {
         return response.json();
     })
     .then(data => {
-        console.log(data);
+        //console.log(data);
 
         const categoriesZone = document.getElementById('categories-zone');
 

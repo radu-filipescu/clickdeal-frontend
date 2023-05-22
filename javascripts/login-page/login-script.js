@@ -41,7 +41,7 @@ function handleFormSubmit(event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(jsonData),
-        //credentials: 'include' // include cookies in the request
+        credentials: 'include' // include cookies in the request
     })
     .then(response => {
         console.log(response)
@@ -56,7 +56,7 @@ function handleFormSubmit(event) {
         if (data.result == 1) {
             // login successful
 
-            window.location.href = CONSTS.URLS.frontendDevIndex;
+            //window.location.href = CONSTS.URLS.frontendDevIndex;
         } else {
             
         }

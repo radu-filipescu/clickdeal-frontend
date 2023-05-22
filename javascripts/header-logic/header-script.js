@@ -21,6 +21,7 @@ function getProductCategories() {
         return response.json();
     })
     .then(data => {
+        console.log(data)
         // set categories names to product menu
         const categoriesMenu = document.getElementById('product-categories-navbar');
 
