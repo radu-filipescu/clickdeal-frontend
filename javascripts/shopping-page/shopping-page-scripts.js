@@ -5,5 +5,9 @@ window.onload = init;
 
 function init() {
     headerInitLogic();
-    
+    getCategoriesFilter();
+}
+
+function getCategoriesFilter() {
+
 }

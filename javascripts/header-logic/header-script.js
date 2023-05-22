@@ -29,7 +29,7 @@ export function headerInitLogic() {
 }
 
 function profileClickLogged() {
-    window.location.href = CONSTS.URLS.frontendProfilePage;
+    window.location.href = CONSTS.URLS.frontendDevProfilePage;
 }
 
 function profileClickNotLogged() {
