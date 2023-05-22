@@ -4,8 +4,8 @@ export const CONSTS = {
         backendProdUrl: "",
         
         frontendDevIndex: "https://localhost:5501/",
-        frontendDevLogin: frontendDevIndex + "login.html",
-        frontendDevProfilePage: frontendDevIndex + "profile.html",
-        frontendDevShopPage: frontendDevIndex + "shop.html"
+        frontendDevLogin: "https://localhost:5501/login.html",
+        frontendDevProfilePage: "https://localhost:5501/profile.html",
+        frontendDevShopPage: "https://localhost:5501/shop.html"
     }
   }
