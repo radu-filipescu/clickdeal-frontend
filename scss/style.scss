@@ -321,6 +321,22 @@ $input-placeholder-color: #999999;
     }
 }
 
+.profile-tab-header {
+    margin-bottom: 1.5rem;
+}
+
+.order-panel {
+    border: 1px solid white;
+
+    &:hover{
+        border: 1px solid $dark;
+    }
+}
+
+.logout-btn {
+    background-color: $primary;
+}
+
 @-webkit-keyframes action {
     0% {
         transform: translateY(0);
