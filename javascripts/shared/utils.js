@@ -41,19 +41,21 @@ export function isLoggedIn(trueCallback = null, falseCallback = null) {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        
         return response.text();
     })
     .then(data => {
+        console.log(data)
         // if not logged in
         if(data.includes("<!DOCTYPE html>")) {
             if(falseCallback != null)
                 falseCallback();
+        } else {
+            // logged in
+            if(trueCallback != null)
+            trueCallback();
         }
 
-        // logged in
-        if(trueCallback != null)
-            trueCallback();
+        
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
