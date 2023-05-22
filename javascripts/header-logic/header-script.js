@@ -3,7 +3,6 @@ import { CONSTS } from "../shared/CONSTS.js"
 
 window.onload = init;
 
-// TODO: get product categories dynamically
 function getProductCategories() {
     const categoriesUrl = CONSTS.URLS.backendDevUrl + 'app/categories/categories';
 
