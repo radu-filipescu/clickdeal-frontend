@@ -1,9 +1,11 @@
 import { isLoggedIn } from "../shared/utils.js"
 import { CONSTS } from "../shared/CONSTS.js"
+import { headerInitLogic } from "../header-logic/header-script.js"
 
 window.onload = init;
 
 function init() {
+    headerInitLogic();
     getProductCategories();
 }
 
@@ -25,8 +27,17 @@ function getProductCategories() {
         return response.json();
     })
     .then(data => {
-        console.log(data);
+        // set categories names to product menu (navbar)
+        const categoriesMenu = document.getElementById('product-categories-navbar');
 
+        for(let i = 0; i < data.length; i++) {
+            let newChild = document.createElement('a');
+            newChild.className = "nav-item nav-link";
+            newChild.innerText = data[i].name;
+            
+            categoriesMenu.appendChild(newChild);
+        }
+        
         const categoriesZone = document.getElementById('categories-zone');
 
         for(let i = 0; i < data.length; i++) {
