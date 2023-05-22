@@ -1,4 +1,3 @@
-import { isLoggedIn } from "../shared/utils.js"
 import { CONSTS } from "../shared/CONSTS.js"
 import { headerInitLogic } from "../header-logic/header-script.js"
 
@@ -27,18 +26,7 @@ function getProductCategories() {
         
         return response.json();
     })
-    .then(data => {
-        // set categories names to product menu (navbar)
-        const categoriesMenu = document.getElementById('product-categories-navbar');
-
-        for(let i = 0; i < data.length; i++) {
-            let newChild = document.createElement('a');
-            newChild.className = "nav-item nav-link";
-            newChild.innerText = data[i].name;
-            
-            categoriesMenu.appendChild(newChild);
-        }
-        
+    .then(data => {       
         const categoriesZone = document.getElementById('categories-zone');
 
         for(let i = 0; i < data.length; i++) {
@@ -129,8 +117,6 @@ function getRecentProducts() {
         return response.json();
     })
     .then(data => {
-        console.log(data);
-
         // add 8 most recent products to homepage
         const recentProductsZone = document.getElementById('recent-products-area');
         
