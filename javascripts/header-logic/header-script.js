@@ -29,7 +29,7 @@ export function headerInitLogic() {
 }
 
 function profileClickLogged() {
-    window.location.href = CONSTS.URLS.frontendProfilePage;
+    window.location.href = CONSTS.URLS.frontendDevProfilePage;
 }
 
 function profileClickNotLogged() {
@@ -54,9 +54,16 @@ function getProductCategoriesForNavbar() {
         return response.json();
     })
     .then(data => {
-        console.log(data);
+        // set categories names to product menu (navbar)
+        const categoriesMenu = document.getElementById('product-categories-navbar');
 
-               
+        for(let i = 0; i < data.length; i++) {
+            let newChild = document.createElement('a');
+            newChild.className = "nav-item nav-link";
+            newChild.innerText = data[i].name;
+            
+            categoriesMenu.appendChild(newChild);
+        }      
     })
     .catch(error => {
         console.error('There was a problem with getting categories:', error);
