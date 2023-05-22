@@ -9179,7 +9179,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .product-item:hover .product-action {
-  /* background: rgba(255, 255, 255, 0.7); */
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .product-item:hover .product-action a.btn:first-child {
