@@ -117,7 +117,7 @@ function getFilteredProducts() {
     .then(data => {
         // filtered products to shop page
         const recentProductsZone = document.getElementById('shop-product-area');
-        
+
         // keeping items page navigation last
 
         //let pageNavElement = recentProductsZone.removeChild(recentProductsZone.firstChild());
@@ -154,6 +154,12 @@ function getFilteredProducts() {
 
             let div1 = document.createElement('div');
             div1.className = "col-lg-4 col-md-4 col-sm-6 pb-1";
+
+            div1.addEventListener('click', function() {
+                window.location.href = CONSTS.URLS.frontendDevDetailPage + "?" + new URLSearchParams({
+                    ProductId: data[i].productId
+                });
+            });
 
                 let div2 = document.createElement('div');
                 div2.className = "product-item bg-light mb-4";
