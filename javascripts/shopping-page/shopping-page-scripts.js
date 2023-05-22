@@ -41,11 +41,14 @@ function getCategoriesFilter() {
             div1.className = "custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3";
 
                 let input1 = document.createElement('input');
+                input1.type = "checkbox";
                 input1.className = "custom-control-input";
+                input1.id = "category-filter-" + data[i].name;
 
                 let label1 = document.createElement('label');
                 label1.className = "custom-control-label";
                 label1.innerText = data[i].name;
+                label1.htmlFor = input1.id;
 
                 let span1 = document.createElement('span');
                 span1.className = "badge border font-weight-normal";
