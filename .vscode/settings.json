@@ -4,8 +4,8 @@
     "liveServer.settings.CustomBrowser": "chrome",
     "liveServer.settings.https": {
       "enable": true,
-      "cert": "C:/Users/Triferment/Desktop/keys/localhost.pem",
-      "key": "C:/Users/Triferment/Desktop/keys/localhost.key",
+      "cert": "C:/Users/Sebastian/Desktop/certificate/localhost.pem",
+      "key": "C:/Users/Sebastian/Desktop/certificate/localhost.key",
       "passphrase": "12345"
     }
   }

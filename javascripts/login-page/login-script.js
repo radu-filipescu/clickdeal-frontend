@@ -31,9 +31,7 @@ function handleFormSubmit(event) {
     data = JSON.stringify(data);
     let jsonData = JSON.parse(data);
 
-    jsonData["rememberMe"] = false;
-    if(jsonData.rememberMe == "on")
-        jsonData["rememberMe"] = true;
+    jsonData["rememberMe"] = document.getElementById("rememberMe").checked;
         
     const loginUrl = CONSTS.URLS.backendDevUrl + 'account/login';
 
@@ -43,16 +41,25 @@ function handleFormSubmit(event) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(jsonData),
-        credentials: 'include' // include cookies in the request
+        //credentials: 'include' // include cookies in the request
     })
     .then(response => {
-        if (!response.ok) {
+        console.log(response)
+        if(!response.ok){
             throw new Error('Network response was not ok');
         }
-        
-        // login successful
 
-        window.location.href = CONSTS.URLS.frontendDevIndex;
+        return response.json();
+        
+    }).then(data => {
+        console.log(data)
+        if (data.result == 1) {
+            // login successful
+
+            window.location.href = CONSTS.URLS.frontendDevIndex;
+        } else {
+            
+        }
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
