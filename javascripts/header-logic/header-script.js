@@ -62,11 +62,12 @@ function getProductCategoriesForNavbar() {
             newChild.className = "nav-item nav-link";
             newChild.innerText = data[i].name;
             newChild.href = CONSTS.URLS.frontendDevShopPage + "?" + new URLSearchParams({
-                Category: '#' + data[i].name + "#"
+                Category: '#' + data[i].name + "#",
+                Page: 1
             });
 
             categoriesMenu.appendChild(newChild);
-            console.log('category', i, CONSTS.frontendDevShopPage);
+            // console.log('category', i, CONSTS.frontendDevShopPage);
         }      
     })
     .catch(error => {

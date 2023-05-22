@@ -3,6 +3,7 @@ import { headerInitLogic } from "../header-logic/header-script.js"
 
 window.onload = init;
 
+
 function init() {
     headerInitLogic();
     getProductCategories();
@@ -222,14 +223,14 @@ function getRecentProducts() {
             div5.appendChild(a5);
             div5.appendChild(div6);
             div5.appendChild(div7);
-            a1.appendChild(i1);
-            a2.appendChild(i2);
-            a3.appendChild(i3);
-            a4.appendChild(i4);
-            div4.appendChild(a1);
-            div4.appendChild(a2);
-            div4.appendChild(a3);
-            div4.appendChild(a4);
+            // a1.appendChild(i1);
+            // a2.appendChild(i2);
+            // a3.appendChild(i3);
+            // a4.appendChild(i4);
+            // div4.appendChild(a1);
+            // div4.appendChild(a2);
+            // div4.appendChild(a3);
+            // div4.appendChild(a4);
             div3.appendChild(img1);
             div3.appendChild(div4);
             div2.appendChild(div3);
