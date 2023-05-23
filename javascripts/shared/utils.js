@@ -44,7 +44,6 @@ export function isLoggedIn(trueCallback = null, falseCallback = null) {
         return response.text();
     })
     .then(data => {
-        console.log(data)
         // if not logged in
         if(data.includes("<!DOCTYPE html>")) {
             if(falseCallback != null)

@@ -33,6 +33,9 @@ function getProductInfo() {
         let productName = document.getElementById('product-name');
         productName.innerText = data.name;
 
+        let reviewCounter2 = document.getElementById('review-counter2');
+        reviewCounter2.innerText = reviewCounter2.innerText + ' review-uri pentru ' + data.name;
+
         let productPrice = document.getElementById('product-price');
         productPrice.innerText = data.price + ' RON';
 
@@ -117,6 +120,8 @@ function getProductInfo() {
 var selectedStars = 1;
 
 function getReviews() {
+    getReviewsForProduct();
+
     let star1 = document.getElementById('hover-star-1');
     let star2 = document.getElementById('hover-star-2');
     let star3 = document.getElementById('hover-star-3');
@@ -260,8 +265,6 @@ function submitReview() {
 
     let review = { 'reviewUsername': reviewUsername, 'content': reviewContent, 'numberOfStars': reviewStars, 'productId': productReviewId };
 
-    console.log(JSON.stringify(review));
-
     fetch(addReviewUrl, {
         method: 'POST',
         headers: {
@@ -273,8 +276,122 @@ function submitReview() {
     .then(async response => {
         //const reader = stream.getReader();
 
-        //var mata = await response.json();
-
         console.log(response);
+    });
+}
+
+function getReviewsForProduct() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    let getReviewsUrl = CONSTS.URLS.backendDevUrl + 'app/review/reviews-for-product?' + urlParams; 
+    
+    console.log(getReviewsUrl);
+
+    let reviewCounter = document.getElementById('review-counter');
+    let reviewCounter2 = document.getElementById('review-counter2');
+    let reviewCounter3 = document.getElementById('review-counter3');
+
+    fetch(getReviewsUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include', // include cookies in the request
+    })
+    .then(response => {
+        //const reader = stream.getReader();
+
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+
+        let reviewArea = document.getElementById('review-zone');
+
+        // <div class="media mb-4" >
+        //     <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+        //     <div class="media-body">
+        //         <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
+        //         <div class="text-primary mb-2">
+        //             <i class="fas fa-star"></i>
+        //             <i class="fas fa-star"></i>
+        //             <i class="fas fa-star"></i>
+        //             <i class="fas fa-star-half-alt"></i>
+        //             <i class="far fa-star"></i>
+        //         </div>
+        //         <p>Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.</p>
+        //     </div>
+        // </div>
+
+        reviewCounter.innerText += ' (' + data.length + ')';
+        reviewCounter2.innerText = data.length + reviewCounter2.innerText; 
+        reviewCounter3.innerText = '(' + data.length + ' review-uri)';
+
+        let starSum = 0;
+
+        for(let i = 0; i < data.length; i++) {
+            starSum += parseInt(data[i].numberOfStars);
+
+            let div0 = document.createElement('div');
+            div0.className = "media mb-4";
+                let img1 = document.createElement('img');
+                img1.src = "img/default-user.jpg";
+                img1.className = "img-fluid mr-3 mt-1";
+                img1.style.width = "45px";
+
+                let div1 = document.createElement('div');
+                div1.className = "media-body";
+                    let h61 = document.createElement('h6');
+                    h61.innerText = data[i].username;
+                        let small1 = document.createElement('small');
+                        small1.innerText = " - ";
+                            let i1 = document.createElement('i');
+                            i1.innerText = data[i].date;
+                    let div2 = document.createElement('div');
+                    div2.className = "text-primary mb-2";
+                        for(let j = 1; j <= data[i].numberOfStars; j++) {
+                            let newStar = document.createElement('i');
+                            newStar.className = "fas fa-star";
+
+                            div2.appendChild(newStar);
+                        }
+                        for(let j = data[i].numberOfStars + 1; j <= 5; j++) {
+                            let newStar = document.createElement('i');
+                            newStar.className = "far fa-star";
+
+                            div2.appendChild(newStar);
+                        }
+                    let p1 = document.createElement('p');
+                    p1.innerText = data[i].content;
+
+            small1.appendChild(i1);
+            h61.appendChild(small1);
+
+            div1.appendChild(h61);
+            div1.appendChild(div2);
+            div1.appendChild(p1);
+
+            div0.appendChild(img1);
+            div0.appendChild(div1);
+
+            reviewArea.appendChild(div0);
+        }
+
+        let starAvg = Math.ceil(starSum / data.length);
+
+        let starAvgEl = document.getElementById('stars-average');
+
+        for(let i = 1; i <= starAvg; i++) {
+            let newStar = document.createElement('small');
+            newStar.className = "fas fa-star";
+            starAvgEl.appendChild(newStar);
+        }
+
+        for(let i = starAvg + 1; i <= 5; i++) {
+            let newStar = document.createElement('small');
+            newStar.className = "far fa-star";
+            starAvgEl.appendChild(newStar);
+        }
     });
 }
