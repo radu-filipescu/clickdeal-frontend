@@ -6,7 +6,11 @@ let concurrencyStamp = "";
 function init() {
     const editProfileButton = document.getElementById("editProfile");
     editProfileButton.addEventListener('click', editProfile);
-    getProfileData()
+
+    const logoutButton = document.getElementById("logountBtn");
+    logoutButton.addEventListener('click', logout);
+
+    getProfileData();
 }
 
 
@@ -54,6 +58,15 @@ function fillEditForm(data){
     phoneNumber.value = data.phoneNumber;
 }
 
+function getXSRFToken() {
+    let cookies = document.cookie.split(';');
+    for(let i = 0; i < cookies.length; i++){
+        if(cookies[i].includes('XSRF-TOKEN')){
+            return cookies[i].split('=')[1];
+        }
+    }
+}
+
 function editProfile(){
     let username = document.getElementById("username");
     let email = document.getElementById("email");
@@ -69,15 +82,18 @@ function editProfile(){
         phoneNumber: phoneNumber.value,
         concurrencyStamp: concurrencyStamp
     }
-
-    console.log(concurrencyStamp)
+    console.log(document.cookie)
+    console.log(document.cookie.split('=')[1])
+    let xsrf = getXSRFToken();
+    console.log(xsrf)
 
     const profileUrl = CONSTS.URLS.backendDevUrl + 'account/my-profile';
 
     fetch(profileUrl, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Requestverificationtoken': xsrf
         },
         body: JSON.stringify(updateDto),
         credentials: 'include' // include cookies in the request
@@ -88,6 +104,24 @@ function editProfile(){
         }
 
         return response.json();
+    }).catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+}
+
+function logout(){
+    const loginUrl = CONSTS.URLS.backendDevUrl + 'account/logout';
+
+    fetch(loginUrl, {
+        method: 'GET',
+        credentials: 'include' // include cookies in the request
+    }).then(response => {
+        console.log(response)
+        if(!response.ok){
+            throw new Error('Response not ok');
+        } else {
+            window.location.href = CONSTS.URLS.frontendDevIndex;
+        }
     }).catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
