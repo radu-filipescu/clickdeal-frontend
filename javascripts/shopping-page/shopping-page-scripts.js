@@ -8,9 +8,33 @@ let total_items = -1;
 
 function init() {
     headerInitLogic();
+    getDiscountFilter();
     getCategoriesFilter();
     initItemPageNavigation();
     getFilteredProducts();
+}
+
+function getDiscountFilter() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    let discountFilter = document.getElementById('discount-check');
+
+    if (urlParams.get('MinDiscount') != null) {
+        discountFilter.checked = true;
+
+        discountFilter.addEventListener('click', function() {
+            urlParams.delete('MinDiscount');
+    
+            window.location.search = urlParams;
+        });
+    }
+    else {
+        discountFilter.addEventListener('click', function() {
+            urlParams.set('MinDiscount', 1);
+    
+            window.location.search = urlParams;
+        });
+    }
 }
 
 function getCategoriesFilter() {
@@ -104,6 +128,9 @@ function getFilteredProducts() {
 
     productsUrl = productsUrl + urlParams;
 
+    const pageNavigation = document.getElementById('shop-page-navigation');
+    pageNavigation.style.visibility = "hidden";
+
     fetch(productsUrl, {
         method: 'GET',
         headers: {
@@ -124,7 +151,6 @@ function getFilteredProducts() {
         const recentProductsZone = document.getElementById('shop-product-area');
 
         // keeping items page navigation last
-        console.log(data);
 
         for(let i = data.length - 1; i >= 0; i--) {
             // <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
@@ -228,6 +254,10 @@ function getFilteredProducts() {
             
             recentProductsZone.insertBefore(div1, recentProductsZone.firstChild);
         }      
+    })
+    .then( () => {
+        const pageNavigation = document.getElementById('shop-page-navigation');
+        pageNavigation.style.visibility = "visible";
     })
     .catch(error => {
         console.error('There was a problem with getting categories:', error);

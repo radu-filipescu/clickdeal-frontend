@@ -235,7 +235,7 @@ function getDiscountedProducts() {
 
     categoriesUrl = categoriesUrl + new URLSearchParams({
         MaxResultCount: 8,
-        MinDiscount: "10"
+        MinDiscount: "1"
     });
 
     fetch(categoriesUrl, {
