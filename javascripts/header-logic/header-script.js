@@ -66,7 +66,7 @@ function getProductCategoriesForNavbar() {
             });
 
             categoriesMenu.appendChild(newChild);
-            console.log('category', i, CONSTS.frontendDevShopPage);
+            console.log('category', i, CONSTS.URLS.frontendDevShopPage);
         }      
     })
     .catch(error => {

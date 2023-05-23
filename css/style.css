@@ -9250,8 +9250,14 @@ a.text-dark:hover, a.text-dark:focus {
   border: 1px solid #293239;
 }
 
-.logout-btn {
+.profile-nav .nav-link.active {
   background-color: #3099df;
+  color: black;
+}
+
+.logout-btn {
+  background-color: #293239;
+  color: #FFFFFF;
 }
 
 @-webkit-keyframes action {

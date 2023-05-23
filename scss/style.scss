@@ -333,8 +333,16 @@ $input-placeholder-color: #999999;
     }
 }
 
+.profile-nav {
+    .nav-link.active{
+        background-color: $primary;
+        color: black;
+    }
+}
+
 .logout-btn {
-    background-color: $primary;
+    background-color: $dark;
+    color: $light;
 }
 
 @-webkit-keyframes action {
