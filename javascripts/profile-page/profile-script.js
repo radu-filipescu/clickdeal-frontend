@@ -58,15 +58,6 @@ function fillEditForm(data){
     phoneNumber.value = data.phoneNumber;
 }
 
-function getXSRFToken() {
-    let cookies = document.cookie.split(';');
-    for(let i = 0; i < cookies.length; i++){
-        if(cookies[i].includes('XSRF-TOKEN')){
-            return cookies[i].split('=')[1];
-        }
-    }
-}
-
 function editProfile(){
     let username = document.getElementById("username");
     let email = document.getElementById("email");
@@ -76,11 +67,9 @@ function editProfile(){
 
     let updateDto = {
         userName: username.value,
-        email: email.value,
         name: name.value,
         surname: surname.value,
         phoneNumber: phoneNumber.value,
-        concurrencyStamp: concurrencyStamp
     }
 
     const profileUrl = CONSTS.URLS.backendDevUrl + 'app/user-profile/edit-user-profile';
@@ -88,8 +77,7 @@ function editProfile(){
     fetch(profileUrl, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Requestverificationtoken': xsrf
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(updateDto),
         credentials: 'include' // include cookies in the request
