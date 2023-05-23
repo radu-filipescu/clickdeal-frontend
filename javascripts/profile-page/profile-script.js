@@ -82,15 +82,11 @@ function editProfile(){
         phoneNumber: phoneNumber.value,
         concurrencyStamp: concurrencyStamp
     }
-    console.log(document.cookie)
-    console.log(document.cookie.split('=')[1])
-    let xsrf = getXSRFToken();
-    console.log(xsrf)
 
-    const profileUrl = CONSTS.URLS.backendDevUrl + 'account/my-profile';
+    const profileUrl = CONSTS.URLS.backendDevUrl + 'app/user-profile/edit-user-profile';
 
     fetch(profileUrl, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Requestverificationtoken': xsrf
