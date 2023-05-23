@@ -3,8 +3,6 @@ import { headerInitLogic } from "../header-logic/header-script.js"
 
 window.onload = init;
 
-product = {};
-
 function init() {
     headerInitLogic();
     getProductInfo();
@@ -260,7 +258,9 @@ function submitReview() {
 
     // TODO: add some validation here
 
-    let review = { reviewUsername: reviewUsername, content: reviewContent, numberOfStars: reviewStars, productId: productReviewId };
+    let review = { 'reviewUsername': reviewUsername, 'content': reviewContent, 'numberOfStars': reviewStars, 'productId': productReviewId };
+
+    console.log(JSON.stringify(review));
 
     fetch(addReviewUrl, {
         method: 'POST',
@@ -270,16 +270,11 @@ function submitReview() {
         credentials: 'include', // include cookies in the request
         body: JSON.stringify(review)
     })
-    .then(response => {
-        console.log(response);
+    .then(async response => {
+        //const reader = stream.getReader();
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        
-        return response.text();
-    })
-    .then(data => { 
-        console.log(data);
+        //var mata = await response.json();
+
+        console.log(response);
     });
 }

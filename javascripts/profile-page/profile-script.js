@@ -70,12 +70,11 @@ function editProfile(){
         concurrencyStamp: concurrencyStamp
     }
 
-    console.log(concurrencyStamp)
 
-    const profileUrl = CONSTS.URLS.backendDevUrl + 'account/my-profile';
+    const profileUrl = CONSTS.URLS.backendDevUrl + 'app/user-profile/edit-user-profile';
 
     fetch(profileUrl, {
-        method: 'PUT',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
