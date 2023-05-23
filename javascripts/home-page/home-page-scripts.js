@@ -3,6 +3,7 @@ import { headerInitLogic } from "../header-logic/header-script.js"
 
 window.onload = init;
 
+
 function init() {
     headerInitLogic();
     getProductCategories();
@@ -153,6 +154,12 @@ function getRecentProducts() {
             let div1 = document.createElement('div');
             div1.className = "col-lg-3 col-md-4 col-sm-6 pb-1";
 
+            div1.addEventListener('click', function() {
+                window.location.href = CONSTS.URLS.frontendDevDetailPage + "?" + new URLSearchParams({
+                    ProductId: data[i].productId
+                });
+            });
+
                 let div2 = document.createElement('div');
                 div2.className = "product-item bg-light mb-4";
 
@@ -167,30 +174,6 @@ function getRecentProducts() {
 
                         let div4 = document.createElement('div');
                         div4.className = "product-action";
-
-                            let a1 = document.createElement('a');
-                            a1.className = "btn btn-outline-dark btn-square";
-                            a1.href = "";
-                            let i1 = document.createElement('i');
-                            i1.className = "fa fa-shopping-cart";
-
-                            let a2 = document.createElement('a');
-                            a2.className = "btn btn-outline-dark btn-square";
-                            a2.href = "";
-                            let i2 = document.createElement('i');
-                            i2.className = "far fa-heart";
-
-                            let a3 = document.createElement('a');
-                            a3.className = "btn btn-outline-dark btn-square";
-                            a3.href = "";
-                            let i3 = document.createElement('i');
-                            i3.className = "fa fa-sync-alt";
-
-                            let a4 = document.createElement('a');
-                            a4.className = "btn btn-outline-dark btn-square";
-                            a4.href = "";
-                            let i4 = document.createElement('i');
-                            i4.className = "fa fa-search";
 
                     let div5 = document.createElement('div');
                     div5.className = "text-center py-4";
@@ -222,14 +205,14 @@ function getRecentProducts() {
             div5.appendChild(a5);
             div5.appendChild(div6);
             div5.appendChild(div7);
-            a1.appendChild(i1);
-            a2.appendChild(i2);
-            a3.appendChild(i3);
-            a4.appendChild(i4);
-            div4.appendChild(a1);
-            div4.appendChild(a2);
-            div4.appendChild(a3);
-            div4.appendChild(a4);
+            // a1.appendChild(i1);
+            // a2.appendChild(i2);
+            // a3.appendChild(i3);
+            // a4.appendChild(i4);
+            // div4.appendChild(a1);
+            // div4.appendChild(a2);
+            // div4.appendChild(a3);
+            // div4.appendChild(a4);
             div3.appendChild(img1);
             div3.appendChild(div4);
             div2.appendChild(div3);

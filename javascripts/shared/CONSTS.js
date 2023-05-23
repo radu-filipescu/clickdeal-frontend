@@ -6,6 +6,7 @@ export const CONSTS = {
         frontendDevIndex: "https://localhost:5501/",
         frontendDevLogin: "https://localhost:5501/login.html",
         frontendDevProfilePage: "https://localhost:5501/profile.html",
-        frontendDevShopPage: "https://localhost:5501/shop.html"
+        frontendDevShopPage: "https://localhost:5501/shop.html",
+        frontendDevDetailPage: "https://localhost:5501/detail.html"
     }
   }
