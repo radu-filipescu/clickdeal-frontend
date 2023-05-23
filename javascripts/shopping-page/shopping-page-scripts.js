@@ -61,8 +61,13 @@ function getCategoriesFilter() {
                 span1.className = "badge border font-weight-normal";
                 span1.innerText = data[i].productsNumber;
 
-                if(urlParams.get('Category') != null && urlParams.get('Category') === '#' + data[i].name + '#') 
+                if(urlParams.get('Category') != null && urlParams.get('Category') === '#' + data[i].name + '#') {
                     input1.checked = true;
+
+                    input1.addEventListener('click', function() {
+                        window.location.href = CONSTS.URLS.frontendDevShopPage;
+                    })
+                }
                 else 
                     input1.addEventListener('click', function() {
                         window.location.href = CONSTS.URLS.frontendDevShopPage + "?" + new URLSearchParams({
@@ -119,8 +124,7 @@ function getFilteredProducts() {
         const recentProductsZone = document.getElementById('shop-product-area');
 
         // keeping items page navigation last
-
-        //let pageNavElement = recentProductsZone.removeChild(recentProductsZone.firstChild());
+        console.log(data);
 
         for(let i = data.length - 1; i >= 0; i--) {
             // <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
@@ -192,6 +196,14 @@ function getFilteredProducts() {
                             let h51 = document.createElement('h5');
                             h51.innerText = data[i].price + " RON";
 
+                            let h61 = document.createElement('h6');
+                            h61.className = "text-muted ml-2";
+                            
+                                let del1 = document.createElement('del');
+                                del1.innerText = Math.ceil((data[i].price * (100 + data[i].priceDiscount)) / 100) + " RON";
+
+                                h61.appendChild(del1);
+
                         let div7 = document.createElement('div');
                         div7.className = "d-flex align-items-center justify-content-center mb-1";
                             for(let i = 0; i < 5; i++) {
@@ -203,6 +215,8 @@ function getFilteredProducts() {
                         
 
             div6.appendChild(h51);
+            if(data[i].priceDiscount > 0)
+                div6.appendChild(h61);
             div5.appendChild(a5);
             div5.appendChild(div6);
             div5.appendChild(div7);
