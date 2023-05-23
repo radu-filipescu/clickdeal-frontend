@@ -116,18 +116,170 @@ function getProductInfo() {
     });
 }
 
+var selectedStars = 1;
+
 function getReviews() {
-    let stars = document.getElementsByClassName('hoverable-star-review');
+    let star1 = document.getElementById('hover-star-1');
+    let star2 = document.getElementById('hover-star-2');
+    let star3 = document.getElementById('hover-star-3');
+    let star4 = document.getElementById('hover-star-4');
+    let star5 = document.getElementById('hover-star-5');
 
-    for(let i = 0; i < stars.length; i++) {
-        let star = stars[i];
+    star1.addEventListener('mouseenter', function() {
+        star2.className = "far fa-star";
+        star3.className = "far fa-star";
+        star4.className = "far fa-star";
+        star5.className = "far fa-star";
 
-        star.addEventListener('mouseenter', function() {
-            star.className = "fas fa-star";
-        });
+        star1.className = "fas fa-star";
+    });
 
-        star.addEventListener('mouseleave', function() {
-            star.className = "far fa-star";
-        });
-    }
+    star1.addEventListener('mouseleave', function() {
+        if (selectedStars < 1)
+            star1.className = "far fa-star";
+    });
+
+    star2.addEventListener('mouseenter', function() {
+        star3.className = "far fa-star";
+        star4.className = "far fa-star";
+        star5.className = "far fa-star";
+
+        star1.className = "fas fa-star";
+        star2.className = "fas fa-star";
+    });
+
+    star1.addEventListener('mouseleave', function() {
+        if (selectedStars < 1)
+            star1.className = "far fa-star";
+        if (selectedStars < 2)
+            star2.className = "far fa-star";
+    });
+
+    star3.addEventListener('mouseenter', function() {
+        star4.className = "far fa-star";
+        star5.className = "far fa-star";
+
+        star1.className = "fas fa-star";
+        star2.className = "fas fa-star";
+        star3.className = "fas fa-star";
+    });
+
+    star3.addEventListener('mouseleave', function() {
+        if (selectedStars < 1)
+            star1.className = "far fa-star";
+        if (selectedStars < 2)
+            star2.className = "far fa-star";
+        if (selectedStars < 3)
+            star3.className = "far fa-star";
+    });
+
+    star4.addEventListener('mouseenter', function() {
+        star5.className = "far fa-star";
+
+        star1.className = "fas fa-star";
+        star2.className = "fas fa-star";
+        star3.className = "fas fa-star";
+        star4.className = "fas fa-star";
+    });
+
+    star4.addEventListener('mouseleave', function() {
+        if (selectedStars < 1)
+            star1.className = "far fa-star";
+        if (selectedStars < 2)
+            star2.className = "far fa-star";
+        if (selectedStars < 3)
+            star3.className = "far fa-star";
+        if(selectedStars < 4)
+            star4.className = "far fa-star";
+    });
+
+    star5.addEventListener('mouseenter', function() {
+        star1.className = "fas fa-star";
+        star2.className = "fas fa-star";
+        star3.className = "fas fa-star";
+        star4.className = "fas fa-star";
+        star5.className = "fas fa-star";
+    });
+
+    star5.addEventListener('mouseleave', function() {
+        if (selectedStars < 1)
+            star1.className = "far fa-star";
+        if (selectedStars < 2)
+            star2.className = "far fa-star";
+        if (selectedStars < 3)
+            star3.className = "far fa-star";
+        if(selectedStars < 4)
+            star4.className = "far fa-star";
+        if(selectedStars < 5)
+            star5.className = "far fa-star";
+    });
+
+    star1.addEventListener('click', function() {
+        selectedStars = 1;
+        console.log('selected start', selectedStars)
+    });
+    star2.addEventListener('click', function() {
+        selectedStars = 2;
+        console.log('selected start', selectedStars)
+    });
+    star3.addEventListener('click', function() {
+        selectedStars = 3;
+        console.log('selected start', selectedStars)
+    });
+    star4.addEventListener('click', function() {
+        selectedStars = 4;
+        console.log('selected start', selectedStars)
+    });
+    star5.addEventListener('click', function() {
+        selectedStars = 5;
+        console.log('selected start', selectedStars)
+    });
+
+    let submitButton = document.getElementById('submit-button');
+
+    submitButton.addEventListener('click', function() {
+        submitReview();
+    })
+}
+
+function submitReview() {
+    let contentInput = document.getElementById('message');
+    let reviewContent = contentInput.value;
+    
+    let usernameInput = document.getElementById('name');
+    let reviewUsername = usernameInput.value;
+
+    let reviewStars = selectedStars;
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    let productReviewId = urlParams.get("ProductId");
+
+    const addReviewUrl = CONSTS.URLS.backendDevUrl + 'app/review';
+
+    // TODO: add some validation here
+
+    let review = { reviewUsername: reviewUsername, content: reviewContent, numberOfStars: reviewStars, productId: productReviewId };
+
+    fetch(addReviewUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include', // include cookies in the request
+        body: JSON.stringify(review)
+    })
+    .then(response => {
+        console.log(response);
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        
+        return response.text();
+    })
+    .then(data => { 
+        console.log(data);
+    });
 }
