@@ -58,15 +58,6 @@ function fillEditForm(data){
     phoneNumber.value = data.phoneNumber;
 }
 
-function getXSRFToken() {
-    let cookies = document.cookie.split(';');
-    for(let i = 0; i < cookies.length; i++){
-        if(cookies[i].includes('XSRF-TOKEN')){
-            return cookies[i].split('=')[1];
-        }
-    }
-}
-
 function editProfile(){
     let username = document.getElementById("username");
     let email = document.getElementById("email");
