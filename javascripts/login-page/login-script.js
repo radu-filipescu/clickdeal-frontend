@@ -1,4 +1,5 @@
 import { CONSTS } from "../shared/CONSTS.js"
+//TODOȘ sterge categoriile dummy
 
 // run this code after window loads,
 // so we don't get null elements on getElementById
