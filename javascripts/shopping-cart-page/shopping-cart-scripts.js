@@ -301,6 +301,9 @@ function initSendButton() {
                     if (data.userAlreadyHasPendingOrder) {
                         showUserHasPendingOrder();
                     }
+                    else {
+                        showGeneralFailed();
+                    }
             }
         });
     });
@@ -328,7 +331,6 @@ function showEntriesOutOfStock(list) {
 
                     let errorOutput = document.getElementById('error-message-output');
                     errorOutput.innerText = "Produsele marcate nu sunt prezente în stoc în cantitatea selectată.";
-                    errorOutput.style.color = "red";
                 }
             }
         }
@@ -338,7 +340,11 @@ function showEntriesOutOfStock(list) {
 function showUserHasPendingOrder() {
     let errorOutput = document.getElementById('error-message-output');
     errorOutput.innerText = "Deja aveți o comandă în așteptare.";
-    errorOutput.style.color = "red";
+}
+
+function showGeneralFailed() {
+    let errorOutput = document.getElementById('error-message-output');
+    errorOutput.innerText = "Checkout-ul nu a fost trimis.";
 }
 
 function areSpecsEqual(o1, o2){
