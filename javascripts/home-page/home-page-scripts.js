@@ -306,6 +306,10 @@ function getDiscountedProducts() {
                         img1.className = "img-fluid w-100";
                         img1.src = data[i].image;
 
+                        if (data[i].image == "") {
+                            img1.src = "img/missing-image.jpg"
+                        }
+
                         // TODO: make all product background squared the same size
 
                         let div4 = document.createElement('div');
