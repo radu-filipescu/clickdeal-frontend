@@ -1,9 +1,11 @@
 import { CONSTS } from "../shared/CONSTS.js"
+import { headerInitLogic } from "../header-logic/header-script.js"
 
 window.onload = init;
-let concurrencyStamp = "";
 
 function init() {
+    headerInitLogic();
+
     const editProfileButton = document.getElementById("editProfile");
     editProfileButton.addEventListener('click', editProfile);
 
