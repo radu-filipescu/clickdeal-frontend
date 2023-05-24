@@ -4,13 +4,31 @@ window.onload = init;
 let concurrencyStamp = "";
 
 function init() {
-    const editProfileButton = document.getElementById("editProfile");
-    editProfileButton.addEventListener('click', editProfile);
+    //const editProfileButton = document.getElementById("editProfile");
+    //editProfileButton.addEventListener('click', editProfile);
 
     const logoutButton = document.getElementById("logountBtn");
     logoutButton.addEventListener('click', logout);
 
     getProfileData();
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        document.getElementById("username-invalid-message").innerHTML = "Câmp obligatoriu.";
+        username.setCustomValidity('');
+
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();          
+        } else {
+            editProfile(event);
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
 }
 
 
@@ -58,9 +76,11 @@ function fillEditForm(data){
     phoneNumber.value = data.phoneNumber;
 }
 
-function editProfile(){
+function editProfile(event){
+    event.preventDefault();
+    event.stopPropagation();  
+
     let username = document.getElementById("username");
-    let email = document.getElementById("email");
     let surname = document.getElementById("surname");
     let name = document.getElementById("name");
     let phoneNumber = document.getElementById("phoneNumber");
@@ -88,6 +108,12 @@ function editProfile(){
         }
 
         return response.json();
+    }).then(data => {
+        console.log(data)
+        if(data.success == false) {
+            document.getElementById("username-invalid-message").innerHTML = data.message;
+            username.setCustomValidity('username-taken');
+        }
     }).catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });

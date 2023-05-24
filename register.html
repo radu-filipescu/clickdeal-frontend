@@ -30,24 +30,40 @@
             <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Deal</span>
         </a>
         <div class="container center login-panel">
-            <form>
+            <form class="needs-validation" novalidate>
                 <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <label for="username" class="form-label">Username</label>
+                  <input type="text" class="form-control" id="username" aria-describedby="userNameHelp" required>
+                  <div class="invalid-feedback" id="username-invalid-message">
+                    Câmp obligatoriu.
+                  </div> 
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Parola</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
+                  <div class="invalid-feedback" id="email-invalid-message">
+                    Adresa de email este invalidă
+                  </div> 
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword2" class="form-label">Repetă parola</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                  <label for="password" class="form-label">Parola</label>
+                  <input type="password" class="form-control" id="password" required>
+                  <div class="invalid-feedback" id="password-invalid-message">
+                    Câmp obligatoriu.
+                  </div> 
+                </div>
+                <div class="mb-3">
+                    <label for="repeat-password" class="form-label">Repetă parola</label>
+                    <input type="password" class="form-control" id="repeat-password" required>
+                    <div class="invalid-feedback" id="confirm-password-invalid-message">
+                      Câmp obligatoriu.
+                    </div> 
                   </div>
                 <div class="mb-3 form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label form-label" for="exampleCheck1">Abonează-mă la newsletter</label>
+                  <input type="checkbox" class="form-check-input no-validation" id="exampleCheck1">
+                  <label class="form-check-label form-label no-validation" for="exampleCheck1">Abonează-mă la newsletter</label>
                 </div>
-                <button type="submit" class="btn btn-primary login-btn">Conectează-te</button>
+                <button class="btn btn-primary login-btn" id="submitButton" type="submit">Conectează-te</button>
             </form>
                 <p style="margin-top: 1rem;">Ai deja un cont? Click <a href="login.html">aici</a> pentru a te conecta!</p>
                 <hr>
@@ -61,5 +77,7 @@
                     Google
                 </button>
         </div>
+
+        <script type="module" src="./javascripts/register-page/register-script.js"></script>  
     </body>    
 </html>

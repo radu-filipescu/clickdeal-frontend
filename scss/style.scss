@@ -345,6 +345,10 @@ $input-placeholder-color: #999999;
     color: $light;
 }
 
+.no-validation {
+    color: black !important;
+}
+
 @-webkit-keyframes action {
     0% {
         transform: translateY(0);
