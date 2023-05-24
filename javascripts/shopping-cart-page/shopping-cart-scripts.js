@@ -15,6 +15,7 @@ function init() {
     loadProducts();
     getDeliveryCost();
     autofillEmail();
+    initSendButton();
 }
 
 function loadProducts() {
@@ -258,5 +259,42 @@ function autofillEmail() {
     isLoggedIn(function (userdata) {
         let emailInput = document.getElementById('order-email-input');
         emailInput.value = userdata.email;
+    });
+}
+
+function initSendButton() {
+    let checkoutButton = document.getElementById('sent-for-checkout');
+
+    checkoutButton.addEventListener('click', function(){
+        let shoppingCart = JSON.parse(localStorage.getItem(CONSTS.STORAGE.shoppingCart));
+        let emailInput = document.getElementById('order-email-input');
+        
+        shoppingCart.OrderEmail = emailInput.value;
+        for(let i = 0; i < shoppingCart.Entries.length; i++) {
+            shoppingCart.Entries[i].Specs = JSON.stringify(shoppingCart.Entries[i].Specs);
+        }
+
+        console.log(shoppingCart);
+
+        const checkoutUrl = CONSTS.URLS.backendDevUrl + 'app/product-stock/checkout-cart';
+
+        fetch(checkoutUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(shoppingCart),
+            credentials: 'include' // include cookies in the request
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error getting products details');
+            }
+            
+            return response.json();
+        })
+        .then(data => {
+            console.log(data); 
+        });
     });
 }
