@@ -110,6 +110,7 @@ function showProductsInCart() {
         // </tr>
 
         let tr1 = document.createElement('tr')
+        tr1.id = 'entry-' + i.toString();
             let td1 = document.createElement('td')
             td1.className = "align-middle";
                 let img1 = document.createElement('img');
@@ -274,8 +275,6 @@ function initSendButton() {
             shoppingCart.Entries[i].Specs = JSON.stringify(shoppingCart.Entries[i].Specs);
         }
 
-        console.log(shoppingCart);
-
         const checkoutUrl = CONSTS.URLS.backendDevUrl + 'app/product-stock/checkout-cart';
 
         fetch(checkoutUrl, {
@@ -294,7 +293,68 @@ function initSendButton() {
             return response.json();
         })
         .then(data => {
-            console.log(data); 
+            if(data.success == false) {
+                if (data.productIdsAndSpecsOutOfStock.length > 0) {
+                    showEntriesOutOfStock(data.productIdsAndSpecsOutOfStock);
+                }
+                else 
+                    if (data.userAlreadyHasPendingOrder) {
+                        showUserHasPendingOrder();
+                    }
+            }
         });
     });
 }
+
+function showEntriesOutOfStock(list) {
+    for(let i = 0; i < list.length; i++) {
+        let badProduct = list[i];
+
+        let badProductId = badProduct.split("#")[0];
+        let badProductSpecs = JSON.parse(badProduct.split("#")[1]);
+
+        //console.log(badProductId);
+        //console.log(badProductSpecs);
+
+        for(let j = 0; j < shoppingCart.Entries.length; j++) {
+            let product = shoppingCart.Entries[j];
+
+            if (JSON.stringify(badProductId) == JSON.stringify(product.ProductId)) {
+                if (areSpecsEqual(badProductSpecs, product.Specs)) {
+                    // handle out of stock products
+
+                    let badEntry = document.getElementById('entry-'+ j.toString());
+                    badEntry.style.backgroundColor = "#ffcccb";
+
+                    let errorOutput = document.getElementById('error-message-output');
+                    errorOutput.innerText = "Produsele marcate nu sunt prezente în stoc în cantitatea selectată.";
+                    errorOutput.style.color = "red";
+                }
+            }
+        }
+    }
+}
+
+function showUserHasPendingOrder() {
+    let errorOutput = document.getElementById('error-message-output');
+    errorOutput.innerText = "Deja aveți o comandă în așteptare.";
+    errorOutput.style.color = "red";
+}
+
+function areSpecsEqual(o1, o2){
+    for(var p in o1){
+        if(o1.hasOwnProperty(p)){
+            if(o1[p] !== o2[p]){
+                return false;
+            }
+        }
+    }
+    for(var p in o2){
+        if(o2.hasOwnProperty(p)){
+            if(o1[p] !== o2[p]){
+                return false;
+            }
+        }
+    }
+    return true;
+};
