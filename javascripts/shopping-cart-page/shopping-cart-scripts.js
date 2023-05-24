@@ -3,7 +3,7 @@ import { headerInitLogic } from "../header-logic/header-script.js"
 
 window.onload = init;
 
-var products = []
+var productsEntriesExtended = {}
 var shoppingCart;
 
 function init() {
@@ -34,22 +34,49 @@ function loadProducts() {
             return response.json();
         })
         .then(data => { 
-            products.push(data);
+            productsEntriesExtended[i.toString()] = data;
 
-            if(products.length == shoppingCart.Entries.length) {
+            if(Object.keys(productsEntriesExtended).length == shoppingCart.Entries.length) {
                 showProductsInCart();
             }
         });
     }
 }
 
+function IncrementCartEntryQuantity(entryIdx) {
+    shoppingCart.Entries[entryIdx].Quantity++;
+
+    localStorage.setItem(CONSTS.STORAGE.shoppingCart, JSON.stringify(shoppingCart));
+    location.reload();
+}
+
+function DecrementCartEntryQuantity(entryIdx) {
+    if(shoppingCart.Entries[entryIdx].Quantity > 1)
+        shoppingCart.Entries[entryIdx].Quantity--;
+    else
+        return;
+
+    localStorage.setItem(CONSTS.STORAGE.shoppingCart, JSON.stringify(shoppingCart));
+    location.reload();
+}
+
+function RemoveCartEntry(entryIdx) {
+    if(entryIdx < 0 || entryIdx > shoppingCart.Entries.length - 1)
+        return;
+
+    shoppingCart.Entries.splice(entryIdx, 1);
+
+    localStorage.setItem(CONSTS.STORAGE.shoppingCart, JSON.stringify(shoppingCart));
+    location.reload();
+}
+
 function showProductsInCart() {
     let cartTable = document.getElementById('shopping-cart-table');
 
-    console.log(shoppingCart);
+    console.log(productsEntriesExtended);
 
-    for(let i = 0; i < products.length; i++) {
-        let product = products[i];
+    for(let i = 0; i < Object.keys(productsEntriesExtended).length; i++) {
+        let product = productsEntriesExtended[i];
 
         // <tr>
         //     <td class="align-middle">
@@ -99,13 +126,23 @@ function showProductsInCart() {
                     div2.className = "input-group-btn";
                         let button1 = document.createElement('button');
                         button1.className = "btn btn-sm btn-primary btn-minus";
+
+                        if(shoppingCart.Entries[i].Quantity == 1)
+                            button1.style.backgroundColor = "gray";
+
                             let i1 = document.createElement('i');
                             i1.className = "fa fa-minus";
+
+                        button1.addEventListener('click', function() {
+                            const currentIdx = i;
+
+                            DecrementCartEntryQuantity(currentIdx);
+                        });
                     
                     let input1 = document.createElement('input');
                     input1.type = "text";
                     input1.className = "form-control form-control-sm bg-secondary border-0 text-center";
-                    input1.value = 1;
+                    input1.value = shoppingCart.Entries[i].Quantity;
 
                     let div3 = document.createElement('div');
                     div3.className = "input-group-btn";
@@ -114,9 +151,15 @@ function showProductsInCart() {
                             let i2 = document.createElement('i');
                             i2.className = "fa fa-plus";
 
+                        button2.addEventListener('click', function() {
+                            const currentIdx = i;
+
+                            IncrementCartEntryQuantity(currentIdx);
+                        });
+
             let td4 = document.createElement('td');
             td4.className = "align-middle";
-            td4.innerText = product.price + " RON";
+            td4.innerText = shoppingCart.Entries[i].Quantity * product.price + " RON";
 
             let td5 = document.createElement('td');
             td5.className = "align-middle";
@@ -124,6 +167,12 @@ function showProductsInCart() {
                 button3.className = "btn btn-sm btn-danger";
                     let i3 = document.createElement('i');
                     i3.className = "fa fa-times";
+
+                button3.addEventListener('click', function() {
+                    const currentIdx = i;
+
+                    RemoveCartEntry(currentIdx);
+                });
 
           
         td1.appendChild(img1);
