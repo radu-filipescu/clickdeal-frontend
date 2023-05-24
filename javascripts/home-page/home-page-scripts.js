@@ -48,10 +48,15 @@ function getProductCategories() {
             let div1 = document.createElement('div');
             div1.className = "col-lg-3 col-md-4 col-sm-6 pb-1";
 
+            div1.addEventListener('click', function() {
+                window.location.href = CONSTS.URLS.frontendDevShopPage + "?" + new URLSearchParams({
+                    Category: '#' + data[i].name + "#",
+                    Page: 1
+                });
+            });
+
             let a1 = document.createElement('a');
             a1.className = "text-decoration-none";
-
-            // TODO: a1.href should go to product details
 
             let div2 = document.createElement('div');
             div2.className = "cat-item d-flex align-items-center mb-4";
