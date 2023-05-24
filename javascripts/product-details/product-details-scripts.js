@@ -6,8 +6,11 @@ window.onload = init;
 function init() {
     headerInitLogic();
     getProductInfo();
+    initAddToCartButton();
     getReviews();
 }
+
+var globalSpecsObj = null;
 
 function getProductInfo() {
     const queryString = window.location.search;
@@ -50,7 +53,14 @@ function getProductInfo() {
 
         let specs = document.getElementById('specs-wrapper');
 
-        let specsObj = JSON.parse(data.specs);
+        let specsObj;
+
+        if (data.specs == null || data.specs == "") 
+            specsObj = "";
+        else
+            specsObj = JSON.parse(data.specs)
+
+        globalSpecsObj = specsObj;
 
         // <div class="d-flex mb-3">
         //     <strong class="text-dark mr-3">Sizes:</strong>
@@ -87,6 +97,8 @@ function getProductInfo() {
             strong1.innerText = property + ':';
 
             let form1 = document.createElement('form');
+            form1.className = "radio-selector-input";
+            form1.id = property;
 
             for(let i = 0; i < specsObj[property].length; i++) {
                 let div2 = document.createElement('div');
@@ -97,6 +109,9 @@ function getProductInfo() {
                     input1.className = "custom-control-input";
                     input1.name = property;
                     input1.id = specsObj[property][i];
+
+                    if (i == 0)
+                        input1.checked = true;
 
                     let label1 = document.createElement('label');
                     label1.className = "custom-control-label";
@@ -219,29 +234,71 @@ function getReviews() {
 
     star1.addEventListener('click', function() {
         selectedStars = 1;
-        console.log('selected start', selectedStars)
     });
     star2.addEventListener('click', function() {
         selectedStars = 2;
-        console.log('selected start', selectedStars)
     });
     star3.addEventListener('click', function() {
         selectedStars = 3;
-        console.log('selected start', selectedStars)
     });
     star4.addEventListener('click', function() {
         selectedStars = 4;
-        console.log('selected start', selectedStars)
     });
     star5.addEventListener('click', function() {
         selectedStars = 5;
-        console.log('selected start', selectedStars)
     });
 
     let submitButton = document.getElementById('submit-button');
 
     submitButton.addEventListener('click', function() {
         submitReview();
+    })
+}
+
+function getSelectedSpecs() {
+    let radioInputs = document.getElementsByClassName('radio-selector-input');
+
+    let specsObj = {}
+
+    for(let i = 0; i < radioInputs.length; i++) {
+        let currentInput = radioInputs[i];
+        let inputChildren = currentInput.childNodes;
+
+        for(let j = 0; j < inputChildren.length; j++) {
+            if(inputChildren[j].firstChild.checked) {
+                specsObj[currentInput.id] = inputChildren[j].childNodes[1].innerText;
+                break;
+            }
+        }
+    }
+
+    return specsObj;
+}
+
+function initAddToCartButton() {
+    let cartButton = document.getElementById('add-to-cart-button');
+
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    let productId = urlParams.get('ProductId');
+
+    cartButton.addEventListener('click', function() {
+        let productQuantity = document.getElementById('product-quantity');
+
+        let quantity = productQuantity.value;
+
+        let shoppingCart = JSON.parse(localStorage.getItem(CONSTS.STORAGE.shoppingCart));
+
+        let newEntity = {
+            ProductId: productId,
+            Specs: getSelectedSpecs(),
+            Quantity: quantity
+        };
+
+        shoppingCart.Entries.push(newEntity);
+        localStorage.setItem(CONSTS.STORAGE.shoppingCart, JSON.stringify(shoppingCart));
+
+        location.reload();
     })
 }
 
@@ -277,6 +334,7 @@ function submitReview() {
         //const reader = stream.getReader();
 
         console.log(response);
+        // TODO: message for succesfull review send
     });
 }
 
@@ -285,8 +343,6 @@ function getReviewsForProduct() {
     const urlParams = new URLSearchParams(queryString);
 
     let getReviewsUrl = CONSTS.URLS.backendDevUrl + 'app/review/reviews-for-product?' + urlParams; 
-    
-    console.log(getReviewsUrl);
 
     let reviewCounter = document.getElementById('review-counter');
     let reviewCounter2 = document.getElementById('review-counter2');
@@ -305,8 +361,6 @@ function getReviewsForProduct() {
         return response.json();
     })
     .then(data => {
-        console.log(data);
-
         let reviewArea = document.getElementById('review-zone');
 
         // <div class="media mb-4" >

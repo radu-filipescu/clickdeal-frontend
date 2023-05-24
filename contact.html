@@ -58,7 +58,7 @@
 
 
     <!-- NAVBAR LOGIQUE  -->
-    <script type="module" src="./javascripts/header-logic/header-script.js"></script>  
+    <!-- <script type="module" src="./javascripts/header-logic/header-script.js"></script>   -->
 
     <!-- Navbar Start -->
     <div class="container-fluid bg-dark mb-30">
@@ -120,7 +120,7 @@
                             <!-- TODO: fix cart button on mobile -->
                             <a href="cart.html" class="btn px-0 ml-3" id="shopping-cart-button">
                                 <i class="fas fa-shopping-cart fa-lg text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;" id="shopping-cart-nav-counter">0</span>
                             </a>
                         </div>
 
@@ -148,6 +148,7 @@
     </div>
     <!-- Breadcrumb End -->
 
+    <script type="module" src="./javascripts/contact-page/contact-page-scripts.js"></script> 
 
     <!-- Contact Start -->
     <div class="container-fluid">
@@ -172,6 +173,7 @@
                                 required="required" data-validation-required-message="Câmp obligatoriu" />
                             <p class="help-block text-danger"></p>
                         </div>
+
                         <div class="control-group">
                             <textarea class="form-control" rows="8" id="message" placeholder="Mesaj"
                                 required="required"

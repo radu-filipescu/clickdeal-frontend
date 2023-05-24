@@ -2,12 +2,36 @@ import { isLoggedIn } from "../shared/utils.js"
 import { CONSTS } from "../shared/CONSTS.js"
 
 export function headerInitLogic() {
-    const profileButton = document.getElementById('profile-button');
-    const shoppingCartButton = document.getElementById('shopping-cart-button');
+    // check storage integrity 
 
-    isLoggedIn( () => {
+    // TODO: check if is valid, not only existing
+
+    let shoppingCartValue = localStorage.getItem(CONSTS.STORAGE.shoppingCart);
+
+    if ( shoppingCartValue == null || refreshShoppingCart(shoppingCartValue) == true) {
+        createShoppingCart();
+    }
+
+    mergeItemsShoppingCart();
+
+    let cartCounter = document.getElementById('shopping-cart-nav-counter');
+
+    if(cartCounter != null)
+        cartCounter.innerText = JSON.parse(localStorage.getItem(CONSTS.STORAGE.shoppingCart)).Entries.length;
+
+    
+    const profileButton = document.getElementById('profile-button');
+
+    isLoggedIn( (userData) => {
+        console.log('is logged in with username', userData.userName);
         // true callback (what to do if user is logged)
-        console.log('is logged in');
+  
+        // add userId to shopping-cart
+        let shoppingCart = localStorage.getItem(CONSTS.STORAGE.shoppingCart);
+
+        shoppingCart = JSON.parse(shoppingCart);
+        shoppingCart.Username = userData.userName;
+        localStorage.setItem(CONSTS.STORAGE.shoppingCart, JSON.stringify(shoppingCart));
 
         // profile button goes to profile page
         profileButton.removeEventListener("click", profileClickNotLogged);
@@ -74,3 +98,81 @@ function getProductCategoriesForNavbar() {
         console.error('There was a problem with getting categories:', error);
     });
 }
+
+function refreshShoppingCart(value) {
+    try {
+        JSON.parse(value);
+    } 
+    catch (e) {
+        return true;
+    }
+
+    let shoppingCartObj = JSON.parse(value);
+
+    if (shoppingCartObj.Username == null)
+        return true;
+
+    if (shoppingCartObj.Entries == null)
+        return true;
+
+    return false;
+}
+
+function createShoppingCart() {
+    let shoppingCartObj = {
+        Entries: [],
+        Username: "",
+    };
+
+    let shoppingString = JSON.stringify(shoppingCartObj);
+
+    localStorage.setItem(CONSTS.STORAGE.shoppingCart, shoppingString);
+}
+
+function mergeItemsShoppingCart() {
+    let shoppingCart = JSON.parse(localStorage.getItem(CONSTS.STORAGE.shoppingCart));
+    let cartEntries = shoppingCart.Entries;
+    let mergedEntries = [];
+
+    for(let i = 0; i < cartEntries.length; i++)
+        for(let j = i + 1; j < cartEntries.length; j++) {
+            let A = cartEntries[i];
+            let B = cartEntries[j];
+
+            if (JSON.stringify(A.ProductId) === JSON.stringify(B.ProductId)) {
+                if (areSpecsEqual(A.Specs, B.Specs)) {
+                    let sum = parseInt(A.Quantity) + parseInt(B.Quantity)
+                    A.Quantity = sum.toString();
+
+                    cartEntries.splice(j, 1);
+                    j--;
+                }
+            }
+
+        }
+    
+    for(let i = 0; i < cartEntries.length; i++)
+        mergedEntries.push(cartEntries[i]);
+
+    shoppingCart.Entries = mergedEntries;
+    shoppingCart = JSON.stringify(shoppingCart);
+    localStorage.setItem(CONSTS.STORAGE.shoppingCart, shoppingCart);
+}
+
+function areSpecsEqual(o1, o2){
+    for(var p in o1){
+        if(o1.hasOwnProperty(p)){
+            if(o1[p] !== o2[p]){
+                return false;
+            }
+        }
+    }
+    for(var p in o2){
+        if(o2.hasOwnProperty(p)){
+            if(o1[p] !== o2[p]){
+                return false;
+            }
+        }
+    }
+    return true;
+};

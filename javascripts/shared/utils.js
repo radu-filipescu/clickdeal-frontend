@@ -50,11 +50,13 @@ export function isLoggedIn(trueCallback = null, falseCallback = null) {
                 falseCallback();
         } else {
             // logged in
+            
+            let userData = JSON.parse(data);
+            //console.log(userData);
+            
             if(trueCallback != null)
-            trueCallback();
+                trueCallback(userData);
         }
-
-        
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
