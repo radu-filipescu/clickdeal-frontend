@@ -9,6 +9,9 @@ function init() {
     //const editProfileButton = document.getElementById("editProfile");
     //editProfileButton.addEventListener('click', editProfile);
 
+    const logoutButton = document.getElementById("logountBtn");
+    logoutButton.addEventListener('click', logout);
+
     getProfileData();
 
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -56,7 +59,6 @@ function getProfileData(){
             // logged in
             let dataObject = JSON.parse(data)
             fillEditForm(dataObject);
-            concurrencyStamp = dataObject.concurrencyStamp
         }
     })
 }
@@ -90,6 +92,7 @@ function editProfile(event){
         surname: surname.value,
         phoneNumber: phoneNumber.value,
     }
+    //TODO fix username already taken message even if you don't change username (can't edit profile)
 
     const profileUrl = CONSTS.URLS.backendDevUrl + 'app/user-profile/edit-user-profile';
 
@@ -110,8 +113,11 @@ function editProfile(event){
     }).then(data => {
         console.log(data)
         if(data.success == false) {
-            document.getElementById("username-invalid-message").innerHTML = data.message;
+            document.getElementById("username-invalid-message").innerHTML = "Username-ul există deja";
             username.setCustomValidity('username-taken');
+        } else {
+            localStorage.clear();
+            window.location.reload();
         }
     }).catch(error => {
         console.error('There was a problem with the fetch operation:', error);
@@ -129,6 +135,7 @@ function logout(){
         if(!response.ok){
             throw new Error('Response not ok');
         } else {
+            localStorage.clear();
             window.location.href = CONSTS.URLS.frontendDevIndex;
         }
     }).catch(error => {

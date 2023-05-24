@@ -102,19 +102,24 @@ function handleRegisterErrors(code, message){
 
     if(code === "Volo.Abp.Identity:DuplicateUserName") {
         username.setCustomValidity("duplicate-username");
-        document.getElementById("username-invalid-message").innerHTML = message;
+        //document.getElementById("username-invalid-message").innerHTML = message;
+        document.getElementById("username-invalid-message").innerHTML = "Username-ul ales deja există.";
     } else if(code === "Volo.Abp.Identity:PasswordRequiresNonAlphanumeric") {
         password.setCustomValidity("invalid-password");
-        document.getElementById("password-invalid-message").innerHTML = message;
+        //document.getElementById("password-invalid-message").innerHTML = message;
+        document.getElementById("password-invalid-message").innerHTML = "Parola trebuie să conțină măcar un simbol.";
     } else if(code === "Volo.Abp.Identity:PasswordRequiresDigit") {
         password.setCustomValidity("invalid-password");
-        document.getElementById("password-invalid-message").innerHTML = message;
+        //document.getElementById("password-invalid-message").innerHTML = message;
+        document.getElementById("password-invalid-message").innerHTML = "Parola trebuie să conțină măcar o cifră.";
     } else if(code === "Volo.Abp.Identity:PasswordRequiresUpper"){
         password.setCustomValidity("invalid-password");
-        document.getElementById("password-invalid-message").innerHTML = message;
+        //document.getElementById("password-invalid-message").innerHTML = message;
+        document.getElementById("password-invalid-message").innerHTML = "Parola trebuie să conțină măcar o literă mare.";
     } else if(code === "Volo.Abp.Identity:DuplicateEmail") {
         email.setCustomValidity("invalid-email");
-        document.getElementById("email-invalid-message").innerHTML = message;
+        //document.getElementById("email-invalid-message").innerHTML = message;
+        document.getElementById("email-invalid-message").innerHTML = "Adresa email aleasă deja există.";
     }
 
 }
