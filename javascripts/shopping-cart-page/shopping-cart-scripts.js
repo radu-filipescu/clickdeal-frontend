@@ -5,10 +5,14 @@ window.onload = init;
 
 var productsEntriesExtended = {}
 var shoppingCart;
+var subtotalSum = null;
+var deliveryCost = null;
+var totalSum = 0;
 
 function init() {
     headerInitLogic();
     loadProducts();
+    getDeliveryCost();
 }
 
 function loadProducts() {
@@ -74,6 +78,8 @@ function showProductsInCart() {
     let cartTable = document.getElementById('shopping-cart-table');
 
     console.log(productsEntriesExtended);
+
+    let subtotalSumTemp = 0;
 
     for(let i = 0; i < Object.keys(productsEntriesExtended).length; i++) {
         let product = productsEntriesExtended[i];
@@ -161,6 +167,8 @@ function showProductsInCart() {
             td4.className = "align-middle";
             td4.innerText = shoppingCart.Entries[i].Quantity * product.price + " RON";
 
+            subtotalSumTemp += parseInt(shoppingCart.Entries[i].Quantity) * product.price;
+
             let td5 = document.createElement('td');
             td5.className = "align-middle";
                 let button3 = document.createElement('button')
@@ -200,4 +208,49 @@ function showProductsInCart() {
 
         cartTable.appendChild(tr1);
     }
+
+    subtotalSum = subtotalSumTemp;
+
+    let subTotal = document.getElementById('subtotal-area');
+    subTotal.innerText = subtotalSum + " RON";
+
+    if(deliveryCost != null) {
+        totalSum = deliveryCost + subtotalSum;
+
+        let totalEl = document.getElementById('grand-totale');
+
+        totalEl.innerText = totalSum + ' RON';
+    }
+}
+
+function getDeliveryCost() {
+    const deliveryCostUrl = CONSTS.URLS.backendDevUrl + 'app/product-stock/delivery-cost';
+
+    fetch(deliveryCostUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include' // include cookies in the request
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error getting products details');
+        }
+        
+        return response.json();
+    })
+    .then(data => { 
+        deliveryCost = parseInt(data.cost);
+        
+        let costEl = document.getElementById('delivery-cost-area');
+        costEl.innerText = deliveryCost + " RON";
+
+        if(subtotalSum != null) {
+            totalSum = deliveryCost + subtotalSum;
+    
+            let totalEl = document.getElementById('grand-totale');
+            totalEl.innerText = totalSum + ' RON';
+        }
+    });
 }
