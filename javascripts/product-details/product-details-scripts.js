@@ -124,6 +124,10 @@ function getProductInfo() {
                     input1.name = property;
                     input1.id = specsObj[property][i];
 
+                    input1.addEventListener('change', function() {
+                        getInStockStatus();
+                    });
+
                     if (i == 0)
                         input1.checked = true;
 
@@ -143,6 +147,9 @@ function getProductInfo() {
 
             specs.appendChild(div1);
         }
+
+        // check if product is in stock
+        getInStockStatus();
     });
 }
 
@@ -267,6 +274,44 @@ function getReviews() {
     // submitButton.addEventListener('click', function() {
     //     submitReview();
     // })
+}
+
+function getInStockStatus() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    let getStockInfoUrl = CONSTS.URLS.backendDevUrl + 'app/product/is-product-in-stock'; 
+
+    let obj = {
+        ProductId: urlParams.get('ProductId'),
+        Specs: JSON.stringify(getSelectedSpecs())
+    }
+
+    fetch(getStockInfoUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj),
+        credentials: 'include', // include cookies in the request
+    })
+    .then(response => {
+        //const reader = stream.getReader();
+
+        return response.json();
+    })
+    .then(data => {
+        let inStockStatus = document.getElementById('in-stock-status');
+
+        if(data.inStock) {
+            inStockStatus.innerText = "în stoc";
+            inStockStatus.style.color = "green";
+        }
+        else {
+            inStockStatus.innerText = "nu este în stoc";
+            inStockStatus.style.color = "red";
+        }
+    });
 }
 
 function getSelectedSpecs() {
