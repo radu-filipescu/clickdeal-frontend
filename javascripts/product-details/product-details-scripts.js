@@ -298,7 +298,7 @@ function initAddToCartButton() {
         shoppingCart.Entries.push(newEntity);
         localStorage.setItem(CONSTS.STORAGE.shoppingCart, JSON.stringify(shoppingCart));
 
-        console.log(JSON.parse(localStorage.getItem(CONSTS.STORAGE.shoppingCart)));
+        location.reload();
     })
 }
 

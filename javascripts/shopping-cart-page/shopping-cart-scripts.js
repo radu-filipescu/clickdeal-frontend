@@ -1,5 +1,6 @@
 import { CONSTS } from "../shared/CONSTS.js"
 import { headerInitLogic } from "../header-logic/header-script.js"
+import { isLoggedIn } from "../shared/utils.js"
 
 window.onload = init;
 
@@ -13,6 +14,7 @@ function init() {
     headerInitLogic();
     loadProducts();
     getDeliveryCost();
+    autofillEmail();
 }
 
 function loadProducts() {
@@ -76,9 +78,6 @@ function RemoveCartEntry(entryIdx) {
 
 function showProductsInCart() {
     let cartTable = document.getElementById('shopping-cart-table');
-
-    console.log(productsEntriesExtended);
-
     let subtotalSumTemp = 0;
 
     for(let i = 0; i < Object.keys(productsEntriesExtended).length; i++) {
@@ -252,5 +251,12 @@ function getDeliveryCost() {
             let totalEl = document.getElementById('grand-totale');
             totalEl.innerText = totalSum + ' RON';
         }
+    });
+}
+
+function autofillEmail() {
+    isLoggedIn(function (userdata) {
+        let emailInput = document.getElementById('order-email-input');
+        emailInput.value = userdata.email;
     });
 }
