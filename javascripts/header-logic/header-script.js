@@ -2,12 +2,28 @@ import { isLoggedIn } from "../shared/utils.js"
 import { CONSTS } from "../shared/CONSTS.js"
 
 export function headerInitLogic() {
-    const profileButton = document.getElementById('profile-button');
-    const shoppingCartButton = document.getElementById('shopping-cart-button');
+    // check storage integrity 
 
-    isLoggedIn( () => {
+    // TODO: check if is valid, not only existing
+
+    let shoppingCartValue = localStorage.getItem(CONSTS.STORAGE.shoppingCart);
+
+    if ( shoppingCartValue == null || refreshShoppingCart(shoppingCartValue) == true) {
+        createShoppingCart();
+    }
+    
+    const profileButton = document.getElementById('profile-button');
+
+    isLoggedIn( (userData) => {
+        console.log('is logged in with username', userData.userName);
         // true callback (what to do if user is logged)
-        console.log('is logged in');
+  
+        // add userId to shopping-cart
+        let shoppingCart = localStorage.getItem(CONSTS.STORAGE.shoppingCart);
+
+        shoppingCart = JSON.parse(shoppingCart);
+        shoppingCart.Username = userData.userName;
+        localStorage.setItem(CONSTS.STORAGE.shoppingCart, JSON.stringify(shoppingCart));
 
         // profile button goes to profile page
         profileButton.removeEventListener("click", profileClickNotLogged);
@@ -73,4 +89,36 @@ function getProductCategoriesForNavbar() {
     .catch(error => {
         console.error('There was a problem with getting categories:', error);
     });
+}
+
+function refreshShoppingCart(value) {
+    try {
+        JSON.parse(value);
+    } 
+    catch (e) {
+        return true;
+    }
+
+    let shoppingCartObj = JSON.parse(value);
+
+    if (shoppingCartObj.Username == null)
+        return true;
+
+    if (shoppingCartObj.Entries == null)
+        return true;
+
+    return false;
+}
+
+function createShoppingCart() {
+    console.log('refreshing shoppingCart')
+
+    let shoppingCartObj = {
+        Entries: [],
+        Username: "",
+    };
+
+    let shoppingString = JSON.stringify(shoppingCartObj);
+
+    localStorage.setItem(CONSTS.STORAGE.shoppingCart, shoppingString);
 }

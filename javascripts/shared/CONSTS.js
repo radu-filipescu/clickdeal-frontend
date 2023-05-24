@@ -1,5 +1,5 @@
 export const CONSTS = {
-    URLS : {
+    URLS: {
         backendDevUrl: "https://localhost:44396/api/",
         backendProdUrl: "",
         
@@ -8,5 +8,8 @@ export const CONSTS = {
         frontendDevProfilePage: "https://localhost:5501/profile.html",
         frontendDevShopPage: "https://localhost:5501/shop.html",
         frontendDevDetailPage: "https://localhost:5501/detail.html"
+    },
+    STORAGE: {
+        shoppingCart: "shopping-cart",
     }
   }
