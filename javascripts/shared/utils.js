@@ -1,32 +1,5 @@
 import { CONSTS } from './CONSTS.js'
 
-function logout() {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://localhost:44396/api/account/logout');
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    
-    // TODO: implement logout 
-
-    xhr.onload = function() {
-        //const response = JSON.parse(xhr.responseText);
-
-        console.log('logout reponse', xhr);
-       
-        if(xhr.status === 401) {
-            //if(falseCallback != null) 
-            //    falseCallback();
-        }
-
-        if (xhr.status === 200) {
-            //if(trueCallback != null) 
-            //    trueCallback();
-        } 
-    };   
-
-   xhr.send();
-}
-
 export function isLoggedIn(trueCallback = null, falseCallback = null) {
     const profileUrl = CONSTS.URLS.backendDevUrl + 'account/my-profile';
 

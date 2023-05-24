@@ -4,8 +4,6 @@ import { CONSTS } from "../shared/CONSTS.js"
 export function headerInitLogic() {
     // check storage integrity 
 
-    // TODO: check if is valid, not only existing
-
     let shoppingCartValue = localStorage.getItem(CONSTS.STORAGE.shoppingCart);
 
     if ( shoppingCartValue == null || refreshShoppingCart(shoppingCartValue) == true) {
