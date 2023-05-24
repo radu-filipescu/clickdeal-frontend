@@ -9,6 +9,9 @@ function init() {
     //const editProfileButton = document.getElementById("editProfile");
     //editProfileButton.addEventListener('click', editProfile);
 
+    const logoutButton = document.getElementById("logountBtn");
+    logoutButton.addEventListener('click', logout);
+
     getProfileData();
 
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
