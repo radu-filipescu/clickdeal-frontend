@@ -1,6 +1,6 @@
 import { CONSTS } from "../shared/CONSTS.js"
 import { headerInitLogic } from "../header-logic/header-script.js"
-import { isLoggedIn } from "../shared/utils.js"
+import { isLoggedIn, areSpecsEqual } from "../shared/utils.js"
 
 window.onload = init;
 
@@ -346,21 +346,3 @@ function showGeneralFailed() {
     let errorOutput = document.getElementById('error-message-output');
     errorOutput.innerText = "Checkout-ul nu a fost trimis.";
 }
-
-function areSpecsEqual(o1, o2){
-    for(var p in o1){
-        if(o1.hasOwnProperty(p)){
-            if(o1[p] !== o2[p]){
-                return false;
-            }
-        }
-    }
-    for(var p in o2){
-        if(o2.hasOwnProperty(p)){
-            if(o1[p] !== o2[p]){
-                return false;
-            }
-        }
-    }
-    return true;
-};

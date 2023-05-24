@@ -200,8 +200,11 @@ function getFilteredProducts() {
                         let img1 = document.createElement('img');
                         img1.className = "img-fluid w-100";
                         img1.src = data[i].image;
-
-                        // TODO: make all product background squared the same size
+                        if (img1.naturalWidth > img1.naturalHeight) {
+                            img1.classList.add("center-vertical")
+                        } else if (img1.naturalWidth < img1.naturalHeight) {
+                            img1.classList.add("center-horizontal")
+                        }
 
                         let div4 = document.createElement('div');
                         div4.className = "product-action";

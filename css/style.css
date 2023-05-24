@@ -9264,6 +9264,14 @@ a.text-dark:hover, a.text-dark:focus {
   color: black !important;
 }
 
+.center-vertical {
+  padding: 12.5% 0;
+}
+
+.center-horizontal {
+  padding: 0 12.5%;
+}
+
 @-webkit-keyframes action {
   0% {
     transform: translateY(0);
