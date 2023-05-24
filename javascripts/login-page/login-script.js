@@ -12,6 +12,11 @@ function init() {
     // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function(form) {
       form.addEventListener('submit', function(event) {
+        document.getElementById("exampleInputEmail1").setCustomValidity('');
+        document.getElementById("exampleInputPassword1").setCustomValidity('')
+        document.getElementById("username-invalid-message").innerHTML = "Câmp obligatoriu.";
+        document.getElementById("password-invalid-message").innerHTML = "Câmp obligatoriu.";
+
         if (form.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();
@@ -70,13 +75,25 @@ function handleFormSubmit(event) {
             // login successful
 
             window.location.href = CONSTS.URLS.frontendDevIndex;
-        } else {
-            
+        } else if(data.result == 2) {
+            handleWrongLogin("Datele de conectare sunt greșite!");
+        } else if(data.result == 4){
+            handleWrongLogin("Prea multe încercări eșuate. Vă rugăm să încercați mai târziu.")
         }
     })
     .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
     });
+}
+
+function handleWrongLogin(message){
+    let username = document.getElementById("exampleInputEmail1");
+    let password = document.getElementById("exampleInputPassword1");
+
+    username.setCustomValidity("duplicate-username");
+    password.setCustomValidity("invalid-password");
+    document.getElementById("username-invalid-message").innerHTML = message;
+    document.getElementById("password-invalid-message").innerHTML = message;
 }
 
 
