@@ -263,21 +263,27 @@
                                             <i class="far fa-star" id="hover-star-5"></i>
                                         </div>
                                     </div>
-                                    <form>
+                                    <form class="needs-validation" novalidate>
                                         <div class="form-group">
-                                            <label for="message">Care a fost experiența ta?<span style="color:red">*</span></label>
+                                            <label for="message">Care a fost experiența ta?</label>
                                             <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="name">Numele tău <span style="color:red">*</span></label>
-                                            <input type="text" class="form-control" id="name">
+                                            <input type="text" class="form-control" id="name" required>
+                                            <div class="invalid-feedback" id="username-invalid-message">
+                                                Câmp obligatoriu.
+                                              </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="email">Email <span style="color:red">*</span></label>
-                                            <input type="email" class="form-control" id="email">
+                                            <input type="email" class="form-control" id="email" required>
+                                            <div class="invalid-feedback" id="username-invalid-message">
+                                                Adresă email invalidă.
+                                              </div>
                                         </div>
                                         <div class="form-group mb-0">
-                                            <input id="submit-button" value="Lasă un review" class="btn btn-primary px-3" style="border-radius: 2px !important;">
+                                            <button id="submit-button" class="btn btn-primary px-3" style="border-radius: 2px !important;">Lasă un review</button>
                                         </div>
                                     </form>
                                 </div>
