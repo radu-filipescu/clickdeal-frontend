@@ -174,7 +174,11 @@ function getRecentProducts() {
 
                         let img1 = document.createElement('img');
                         img1.className = "img-fluid w-100";
-                        img1.src = data[i].image;
+                        img1.src = data[i].image.split('#')[1];
+
+                        if(data[i].image == undefined || data[i].image == null || data[i].image.length < 2 || img1.src == null || img1.src == undefined || img1.src.length < 2) {
+                            img1.src = 'img/missing-image.jpg';
+                        }
 
                         // TODO: make all product background squared the same size
 
@@ -309,10 +313,10 @@ function getDiscountedProducts() {
 
                         let img1 = document.createElement('img');
                         img1.className = "img-fluid w-100";
-                        img1.src = data[i].image;
+                        img1.src = data[i].image.split('#')[1];
 
-                        if (data[i].image == "") {
-                            img1.src = "img/missing-image.jpg"
+                        if(data[i].image == undefined || data[i].image == null || data[i].image.length < 2 || img1.src == null || img1.src == undefined || img1.src.length < 2) {
+                            img1.src = 'img/missing-image.jpg';
                         }
 
                         // TODO: make all product background squared the same size

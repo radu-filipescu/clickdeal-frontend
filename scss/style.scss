@@ -30,6 +30,11 @@ $input-placeholder-color: #999999;
 
 /********** Custom CSS ************/
 
+.py-3 {
+    padding-bottom: 0.3rem !important;
+    padding-top: 0.3rem !important;
+}
+
 .h1, h2, h3 {
     font-weight: 700 !important;
 }
@@ -375,4 +380,66 @@ $input-placeholder-color: #999999;
     100% {
         transform: translateY(-15px);
     }
+}
+
+.admin-page-button {
+    background-color:#ccc;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.admin-page-button:hover {
+    background-color:#3099df;
+    cursor: pointer;
+}
+
+.admin-page-new-category-wrapper {
+    margin-left: 50px;
+    background-color: #FFFFFF;
+    width: 80vw;
+    border: 1px solid #293239;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.admin-page-product-details {
+    margin-left: 50px;
+    background-color: #FFFFFF;
+    width: 80vw;
+    border: 1px solid #293239;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.admin-page-product-info {
+    display: inline-block;
+    height: fit-content;
+}
+
+.admin-page-save-product-button {
+    height: 60px;
+    font-size: 20px;
+    border-radius: 8px;
+}
+
+.admin-page-save-product-button:hover {
+    background-color: green;
+}
+
+.admin-page-pending-rewiews-wrapper {
+    margin-left: 50px;
+    background-color: #FFFFFF;
+    width: 80vw;
+    border: 1px solid #293239;
+    padding: 10px;
+    border-radius: 4px; 
+}
+
+.admin-page-all-products-table-column {
+    min-width: 260px;
+    padding-left: 6px;
+    padding-right: 6px;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
 }

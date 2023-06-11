@@ -190,6 +190,8 @@ function getFilteredProducts() {
                     ProductId: data[i].productId
                 });
             });
+                console.log(data);
+
 
                 let div2 = document.createElement('div');
                 div2.className = "product-item bg-light mb-4";
@@ -199,7 +201,12 @@ function getFilteredProducts() {
 
                         let img1 = document.createElement('img');
                         img1.className = "img-fluid w-100";
-                        img1.src = data[i].image;
+                        img1.src = data[i].image.split('#')[1];
+
+                        if(data[i].image == undefined || data[i].image == null || data[i].image.length < 2 || img1.src == null || img1.src == undefined || img1.src.length < 2) {
+                            img1.src = 'img/missing-image.jpg';
+                        }
+
                         if (img1.naturalWidth > img1.naturalHeight) {
                             img1.classList.add("center-vertical")
                         } else if (img1.naturalWidth < img1.naturalHeight) {

@@ -63,7 +63,13 @@ function getProductInfo() {
         productLongDescription.innerText = data.descriptionLong;
 
         let productImage = document.getElementById('product-image');
-        productImage.src = data.image;
+        productImage.src = data.image.split('#')[1];
+
+        console.log(data);
+
+        if(data.image == undefined || data.image == null || data.image.length < 2 || productImage.src == null || productImage.src == undefined || productImage.src.length < 2) {
+            productImage.src = 'img/missing-image.jpg';
+        }
 
         let specs = document.getElementById('specs-wrapper');
 

@@ -1,6 +1,17 @@
 import { isLoggedIn, areSpecsEqual } from "../shared/utils.js"
 import { CONSTS } from "../shared/CONSTS.js"
 
+function addNavToAdminPage() {
+    let navBarEl = document.getElementById('navbar-list-el');
+
+    let adminNav = document.createElement('a');
+    adminNav.className = "nav-item nav-link";
+    adminNav.href = "admin.html";
+    adminNav.innerText = "ADMIN";
+
+    navBarEl.appendChild(adminNav);
+}
+
 export function headerInitLogic() {
     // check storage integrity 
 
@@ -35,6 +46,9 @@ export function headerInitLogic() {
         profileButton.removeEventListener("click", profileClickNotLogged);
 
         profileButton.addEventListener("click", profileClickLogged);
+
+        if(userData.userName == 'admin')
+            addNavToAdminPage();
     }, 
     () => {
         // false callback (what to do if user is not logged)

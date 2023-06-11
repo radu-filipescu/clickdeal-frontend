@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 
 <head>
     <meta charset="utf-8">
@@ -32,8 +32,9 @@
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
                 <a href="index.html" class="text-decoration-none">
-                    <span class="h1 text-uppercase text-primary bg-dark px-2">Click</span>
-                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Deal</span>
+                    <!-- <span class="h1 text-uppercase text-primary bg-dark px-2">Click</span>
+                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Deal</span> -->
+                    <img src="img/logo-clickdeal-tight cropping.png" style="width: 80px">
                 </a>
             </div>
             <div class="col-lg-4 col-6 text-left">
@@ -57,8 +58,8 @@
     <!-- Topbar End -->
 
 
-    <!-- NAVBAR LOGIQUE  -->
-    <!-- <script type="module" src="./javascripts/header-logic/header-script.js"></script>   -->
+    <!-- NAVBAR LOGIQUE  --> 
+    <!-- <script type="module" src="./javascripts/header-logic/header-script.js"></script>    -->
 
     <!-- Navbar Start -->
     <div class="container-fluid bg-dark mb-30">
@@ -134,128 +135,141 @@
     </div>
     <!-- Navbar End -->
 
+    <script type="module" src="./javascripts/admin-page/admin-page-scripts.js"></script> 
 
-    <!-- Breadcrumb Start -->
-    <div class="container-fluid">
-        <div class="row px-xl-5">
-            <div class="col-12">
-                <nav class="breadcrumb bg-light mb-30">
-                    <a class="breadcrumb-item text-dark" href="#">Home</a>
-                    <a class="breadcrumb-item text-dark" href="#">Shop</a>
-                    <span class="breadcrumb-item active">Shop List</span>
-                </nav>
+    <!-- TODO: products categories dropdown look white on white, should add some border maybe -->
+
+    <div class="wrapper" style="padding-left: 30px; padding-right: 30px">
+        <!-- Categories Start -->
+        <div class="container-fluid pt-5" style="max-height: 600px; overflow-y: scroll">
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Categorii de produse</span></h2>
+            <div class="row px-xl-5 pb-3" id="categories-zone">
             </div>
         </div>
-    </div>
-    <!-- Breadcrumb End -->
+        <!-- Categories End --> 
+        
+        <div class="admin-page-new-category-wrapper">
+            <h3 class="admin-page-button">Adaugă o categorie nouă</h3>
+            <br>
+            <label for="new-cat-name">Numele categoriei noi:</label>
+            <input type="text" id="new-cat-name" name="new-cat-name">
+            <br>
+            <label for="new-cat-img">Imaginea categoriei noi:</label>
+            <input type="file" id="new-cat-img" name="new-cat-img" accept="image/png, image/jpeg, image/gif">
+        </div>
 
-    <!-- LOGIQUE -->
-    <script type="module" src="./javascripts/shopping-page/shopping-page-scripts.js"></script> 
+        <br>
+        <br>
 
-    <!-- Shop Start -->
-    <div class="container-fluid">
-        <div class="row px-xl-5">
-            <!-- Shop Sidebar Start -->
-            <div class="col-lg-3 col-md-4">
-                <!-- Category filter Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filtrează după Categorie</span></h5>
-                <div class="bg-light p-4 mb-30">
-                    <form id="categories-filter">
-                    </form>
-                </div>
-                <!-- Category filter End -->
-
-                <!-- Category filter Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filtrează după discount</span></h5>
-                <div class="bg-light p-4 mb-30">
-                    <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="discount-check">
-                            <label class="custom-control-label" for="discount-check">Discount</label>
-                        </div>
-                    </form>
-                </div>
-                <!-- Category filter End -->
-                
-                <!-- Price Start -->
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filtrează după preț</span></h5>
-                <div class="bg-light p-4 mb-30">
-                    <form>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" checked id="price-all">
-                            <label class="custom-control-label" for="price-all">Orice preț</label>
-                            <span class="badge border font-weight-normal">1000</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-1">
-                            <label class="custom-control-label" for="price-1">0 - 100 RON</label>
-                            <span class="badge border font-weight-normal">150</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-2">
-                            <label class="custom-control-label" for="price-2">100 - 200 RON</label>
-                            <span class="badge border font-weight-normal">295</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-3">
-                            <label class="custom-control-label" for="price-3">200 - 300 RON</label>
-                            <span class="badge border font-weight-normal">246</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-4">
-                            <label class="custom-control-label" for="price-4">300 - 500 RON</label>
-                            <span class="badge border font-weight-normal">145</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-5">
-                            <label class="custom-control-label" for="price-5">500 - 1000 RON</label>
-                            <span class="badge border font-weight-normal">168</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-5">
-                            <label class="custom-control-label" for="price-5">1000 - 2000 RON</label>
-                            <span class="badge border font-weight-normal">168</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input" id="price-5">
-                            <label class="custom-control-label" for="price-5">2000 - 5000 RON</label>
-                            <span class="badge border font-weight-normal">168</span>
-                        </div>
-                        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                            <input type="checkbox" class="custom-control-input" id="price-5">
-                            <label class="custom-control-label" for="price-5">> 5000 RON</label>
-                            <span class="badge border font-weight-normal">168</span>
-                        </div>
-                    </form>
-                </div>
-                <!-- Price End -->
+        <div class="admin-page-new-category-wrapper">
+            <h3>Toate produsele</h3>
+            <br>
+            <div style="max-height: 600px; overflow-y: scroll; background-color: #DDDDDD; padding: 5px">
+                <table style="background-color: whitesmoke; border-radius: 5px" id="admin-page-all-products-wrapper">
+                    <tr>
+                      <th class="admin-page-all-products-table-column">Cod Smartbill</th>
+                      <th class="admin-page-all-products-table-column">Nume Smartbill</th>
+                      <th class="admin-page-all-products-table-column">Nume site</th>
+                      <th class="admin-page-all-products-table-column">Visibil pe site</th>
+                    </tr>
+                  </table>
+            </div>
             
-            </div>
-            <!-- Shop Sidebar End -->
+        </div>    
 
+        <br>
+        <div class="admin-page-new-category-wrapper">
+            <h3>Produse</h3>
+            <br>
+            <label for="product-smartbill-code">Cauta un produs dupa codul de pe Smartbill:</label>
+            <br>
+            <input type="text" id="product-smartbill-code" name="product-smartbill-code">
+            <br>
+            <br>
+            <button id="search-product-smartbill-code">Cauta</button>
+        </div>
 
-            <!-- Shop Product Start -->
-            <div class="col-lg-9 col-md-8">
-                <div class="row pb-3" id="shop-product-area">
-                    <div class="col-12" id="shop-page-navigation" style="visibility: hidden;">
-                        <nav>
-                          <ul class="pagination justify-content-center">
-                            <li class="page-item"><a class="page-link" id="prev-page">Previous</span></a></li>
-                            <li class="page-item active"><a class="page-link" id="current-page"></a></li>
-                            <li class="page-item"><a class="page-link" id="current-page_and1"></a></li>
-                            <li class="page-item"><a class="page-link" id="current-page_and2"></a></li>
-                            <li class="page-item"><a class="page-link" id="next-page">Next</a></li>
-                          </ul>
-                        </nav>
-                    </div>
-                </div>
+        <br>
+        <div class="admin-page-product-details" id="product-details" style="display: none">
+            <div style="width: 450px; height: fit-content; float: left">
+                <img id="detail-img" style="max-height: 400px; max-width: 400px; border: 2px solid black">
+                <br>
+                <br>
+                <label for="detail-product-img-upload">Schimbă/Adaugă imagini (separate prin #):</label>
+                <input type="text" id="detail-product-img-upload" name="detail-product-img-upload">
             </div>
-            <!-- Shop Product End -->
+            <div class="admin-page-product-info">
+                <label for="detail-product-smartbill-code">Codul de identificare de pe Smartbill:</label>
+                <br>
+                <input type="text" disabled id="detail-product-smartbill-code" name="detail-product-smartbill-code">
+                <br>
+                <br>
+                <label for="detail-product-internal-code">Codul de identificare intern:</label>
+                <br>
+                <input type="text" disabled id="detail-product-internal-code" name="detail-product-internal-code">
+                <br>
+                <br>
+                <label for="detail-product-smartbill-name">Numele de pe Smartbill:</label>
+                <br>
+                <input type="text" disabled id="detail-product-smartbill-name" name="detail-product-smartbill-name">
+                <br>
+                <br>
+                <label for="detail-product-smartbill-stock-left">Produse în stoc:</label>
+                <br>
+                <input type="text" disabled id="detail-product-smartbill-stock-left" name="detail-product-smartbill-stock-left">
+                <br>
+                <br>
+                <label for="detail-product-smartbill-is-visible">Este vizibil pe site:</label>
+                <br>
+                <input type="checkbox" id="detail-product-smartbill-is-visible" name="detail-product-smartbill-is-visible">
+                <br>
+                <br>
+                <label for="detail-product-name">Numele de pe site al produsului:</label>
+                <br>
+                <input type="text" id="detail-product-name" name="detail-product-name">
+                <br>
+                <br>
+                <label for="detail-product-categories">Categoriile produsului (separate prin #):</label>
+                <br>
+                <input type="text" id="detail-product-categories" name="detail-product-categories">
+                <br>
+                <br>
+                <label for="detail-product-brand">Brand:</label>
+                <br>
+                <input type="text" id="detail-product-brand" name="detail-product-brand">
+                <br>
+                <br>
+                <label for="detail-product-short-desc">Descriere scurtă:</label>
+                <br>
+                <textarea id="detail-product-short-desc" name="detail-product-short-desc" style="resize: both"></textarea>
+                <br>
+                <br>
+                <label for="detail-product-long-desc">Descriere lungă:</label>
+                <br>
+                <textarea id="detail-product-long-desc" name="detail-product-long-desc" style="resize: both"></textarea>
+                <br>
+                <br>
+                <label for="detail-product-price">Preț:</label>
+                <br>
+                <input type="number" id="detail-product-price" name="detail-product-price">
+                <br>
+                <br>
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <button class="admin-page-save-product-button" id="save-product-button">Salvează modificările</button>
+            <div id="success-message-editing" style="color: green; font-weight: bold; display: none;">Produs editat cu succes!</div>
+        </div>
+
+        <br>
+
+        <div class="admin-page-pending-rewiews-wrapper">
+            <h3>Review-uri în așteptare</h3>
+            <br>
         </div>
     </div>
-    <!-- Shop End -->
-
-
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
         <div class="row px-xl-5 pt-5">
