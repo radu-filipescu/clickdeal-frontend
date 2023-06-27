@@ -190,8 +190,7 @@ function getFilteredProducts() {
                     ProductId: data[i].productId
                 });
             });
-                console.log(data);
-
+                //console.log(data);
 
                 let div2 = document.createElement('div');
                 div2.className = "product-item bg-light mb-4";
@@ -263,7 +262,11 @@ function getFilteredProducts() {
             div1.appendChild(div2);
             
             recentProductsZone.insertBefore(div1, recentProductsZone.firstChild);
-        }      
+        }  
+        
+        if(data.length == 0) {
+            document.getElementById('shop-product-area').style.display = "none";
+        }
     })
     .then( () => {
         const pageNavigation = document.getElementById('shop-page-navigation');

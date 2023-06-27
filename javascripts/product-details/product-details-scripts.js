@@ -65,8 +65,6 @@ function getProductInfo() {
         let productImage = document.getElementById('product-image');
         productImage.src = data.image.split('#')[1];
 
-        console.log(data);
-
         if(data.image == undefined || data.image == null || data.image.length < 2 || productImage.src == null || productImage.src == undefined || productImage.src.length < 2) {
             productImage.src = 'img/missing-image.jpg';
         }
@@ -155,7 +153,7 @@ function getProductInfo() {
         }
 
         // check if product is in stock
-        getInStockStatus();
+        getInStockStatus(data.quantity);
     });
 }
 
@@ -282,42 +280,17 @@ function getReviews() {
     // })
 }
 
-function getInStockStatus() {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
+function getInStockStatus(inStock) {
+    let inStockStatus = document.getElementById('in-stock-status');
 
-    let getStockInfoUrl = CONSTS.URLS.backendDevUrl + 'app/product/is-product-in-stock'; 
-
-    let obj = {
-        ProductId: urlParams.get('ProductId'),
-        Specs: JSON.stringify(getSelectedSpecs())
+    if(inStock == 1) {
+        inStockStatus.innerText = "în stoc";
+        inStockStatus.style.color = "green";
     }
-
-    fetch(getStockInfoUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(obj),
-        credentials: 'include', // include cookies in the request
-    })
-    .then(response => {
-        //const reader = stream.getReader();
-
-        return response.json();
-    })
-    .then(data => {
-        let inStockStatus = document.getElementById('in-stock-status');
-
-        if(data.inStock) {
-            inStockStatus.innerText = "în stoc";
-            inStockStatus.style.color = "green";
-        }
-        else {
-            inStockStatus.innerText = "nu este în stoc";
-            inStockStatus.style.color = "red";
-        }
-    });
+    else {
+        inStockStatus.innerText = "nu este în stoc";
+        inStockStatus.style.color = "red";
+    }
 }
 
 function getSelectedSpecs() {
@@ -356,7 +329,6 @@ function initAddToCartButton() {
 
         let newEntity = {
             ProductId: productId,
-            Specs: getSelectedSpecs(),
             Quantity: quantity
         };
 

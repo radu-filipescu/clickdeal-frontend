@@ -114,7 +114,12 @@ function showProductsInCart() {
             let td1 = document.createElement('td')
             td1.className = "align-middle";
                 let img1 = document.createElement('img');
-                img1.src = product.image;
+
+                img1.src = product.image.split('#')[1];
+                if(product.image == undefined || product.image == null || product.image.length < 2 || img1.src == null || img1.src == undefined || img1.src.length < 2) {
+                    img1.src = 'img/missing-image.jpg';
+                }
+                
                 img1.style.width="50px";
 
                 let span1 = document.createElement('span');

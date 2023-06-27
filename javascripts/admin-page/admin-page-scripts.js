@@ -6,11 +6,162 @@ window.onload = init;
 function init() {
     headerInitLogic();
     getProductCategories();
-    //getDiscountedProducts();
-    //getRecentProducts();
     getAllProducts();
-    //getProductInfo('ProductId=3a0b553a-08ca-3d65-fe79-248dee1afdd5');
+    getPendingReviews();
 }
+
+function approveReview(reviewIdParam) {
+    const approveReviewUrl = CONSTS.URLS.backendDevUrl + 'app/review/approve-or-delete-review';
+
+    let obj = {
+        reviewId: reviewIdParam,
+        approve: true,
+        delete: false
+    };
+
+    fetch(approveReviewUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj),
+        credentials: 'include' // include cookies in the request
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        return response.text();
+    })
+    .then(data => { 
+        console.log(data);
+    });
+}
+
+function deleteReview(reviewIdParam) {
+    const approveReviewUrl = CONSTS.URLS.backendDevUrl + 'app/review/approve-or-delete-review';
+
+    let obj = {
+        reviewId: reviewIdParam,
+        Approve: false,
+        Delete: true
+    };
+
+    fetch(approveReviewUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(obj),
+        credentials: 'include' // include cookies in the request
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        return response.text();
+    })
+    .then(data => { 
+        console.log(data);
+    });
+}
+
+function getPendingReviews() {
+    const pendingReviewsUrl = CONSTS.URLS.backendDevUrl + 'app/review/pending-reviews';
+
+    fetch(pendingReviewsUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include' // include cookies in the request
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        return response.json();
+    })
+    .then(data => { 
+        console.log(data);
+
+        var mainEl = document.getElementById('pending-review-father');
+        
+        for(let i = 0; i < data.length; i++) {
+            // <div style="border: 1px solid black; background-color: beige; padding: 10px; margin-bottom: 30px; border-radius: 6px">
+            //     <div style="font-weight: bold">ID Produs Smartbill: 12312312</div>
+            //     <br>
+            //     <div>Număr de stele: 4</div>
+            //     <div>Email Review: </div>
+            //     <br>
+            //     <label>Conținut review:</label>
+            //     <br>
+            //     <textarea style="min-width: 600px"></textarea>
+            //     <br>
+            //     <button class="btn-success">Aprobă</button>
+            //     <button class="btn-danger">Șterge</button>
+            // </div>
+
+            let div1 = document.createElement('div');
+            div1.style.border = "1px solid black";
+            div1.style.backgroundColor = "beige";
+            div1.style.padding = "10px";
+            div1.style.marginBottom = "30px";
+            div1.style.borderRadius = "6px";
+
+            let div2 = document.createElement('div');
+            div2.style.fontWeight = "bold";
+            div2.innerText = "ID Produs Smartbill: " + data[i].smartbillId;
+            div2.style.marginBottom = "10px";
+
+            let div4 = document.createElement('div');
+            div4.innerText = "Username:    " + data[i].reviewUsername;
+
+            let div3 = document.createElement('div');
+            div3.innerText = "Nr. de stele:    " + data[i].numberOfStars;
+
+            let textarea = document.createElement('textarea');
+            textarea.style.minWidth = "600px";
+            textarea.style.marginBottom = "10px";
+            textarea.innerText = data[i].content;
+            textarea.disabled = true;
+
+            let buttonApprove = document.createElement('button');
+            buttonApprove.className = "btn-success";
+            buttonApprove.innerText = "Aprobă";
+            buttonApprove.style.marginRight = "10px";
+            buttonApprove.addEventListener('click', function() {
+                approveReview(data[i].id);
+
+                window.location.reload();
+            })
+
+            let buttonDelete = document.createElement('button');
+            buttonDelete.className = "btn-danger";
+            buttonDelete.innerText = "Șterge";
+            buttonDelete.addEventListener('click', function() {
+                deleteReview(data[i].id);
+
+                window.location.reload();
+            })
+
+            div1.appendChild(div2);
+            div1.appendChild(div3);
+            div1.appendChild(div4);
+            div1.appendChild(div3);
+            div1.appendChild(textarea);
+            div1.appendChild(document.createElement('br'));
+            div1.appendChild(buttonApprove);
+            div1.appendChild(buttonDelete);
+
+            mainEl.appendChild(div1);
+        }
+    });
+}
+
 
 var currentProduct = null;
 var productImages = [];
@@ -138,24 +289,26 @@ function saveProductEdits() {
         if(data.name == "Editing succesful!") {
             document.getElementById('success-message-editing').style.display = "block";
 
-            setTimeout(function() {document.getElementById('success-message-editing').style.display = "none";}, 3000);
+            setTimeout(function() {
+                document.getElementById('success-message-editing').style.display = "none";
+                window.location.reload();
+            }, 1500);
         }
     });
-
 }
 
 function getAllProducts() {
     var saveModifications = document.getElementById('save-product-button');
     saveModifications.addEventListener('click', function() {
         saveProductEdits();
-    })
+    });
 
     var searchProdByCodeButton = document.getElementById('search-product-smartbill-code');
     searchProdByCodeButton.addEventListener('click', function() {
         searchProductByCode();
     });
     
-    let productsUrl = CONSTS.URLS.backendDevUrl + 'app/product/products-filtered?';
+    let productsUrl = CONSTS.URLS.backendDevUrl + 'app/product/products-filtered-admin?';
 
     fetch(productsUrl, {
         method: 'GET',
